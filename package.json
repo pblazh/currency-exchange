@@ -1,0 +1,25 @@
+{
+  "name": "revolute",
+  "version": "0.1.0",
+  "description": "Revolute senior front-end test app",
+  "author": "Pawel Blazejewski <pblazh@gmail.com>",
+  "repository": "https://androbot@bitbucket.org/androbot/revolute.git",
+  "license": "MIT",
+  "private": true,
+  "worksapces": [
+    "packages/*"
+  ],
+  "scripts":{
+      "start": "wsrun start",
+      "test": "wsrun test",
+      "build": "wsrun build"
+  },
+  "engines": {
+    "node": ">=8",
+    "yarn": ">=1.2.0 <2.0.0"
+  },
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "wsrun": "^3.6.2"
+  }
+}
