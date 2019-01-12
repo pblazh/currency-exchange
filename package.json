@@ -10,9 +10,9 @@
     "packages/*"
   ],
   "scripts":{
-      "start": "wsrun start",
-      "test": "wsrun test",
-      "build": "wsrun build"
+      "start": "wsrun --exclude-missing start",
+      "test": "wsrun --exclude-missing test",
+      "build": "wsrun --exclude-missing build"
   },
   "engines": {
     "node": ">=8",
