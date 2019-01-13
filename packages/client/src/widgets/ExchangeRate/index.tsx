@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { ActionT, AppStoreT } from "../../store/types";
-import { SampleT } from '../../../../types';
-import { exchange } from '../../store/modules';
-import { DateBadge, Loading } from './components';
+import { SampleT } from "../../../../types";
+import { exchange } from "../../store/modules";
+import { Loading } from "./components";
+import Main from "./Main";
 
 interface ExchangeRateProps {
   exchangeRates: SampleT;
@@ -11,29 +12,21 @@ interface ExchangeRateProps {
 }
 
 class ExchangeRate extends Component<ExchangeRateProps> {
-  componentDidMount(){
+  componentDidMount() {
     this.props.fetch();
   }
   render() {
     const { exchangeRates } = this.props;
-    return (
-      <div>
-          { 
-            exchangeRates 
-              ? <DateBadge date={new Date(exchangeRates.updated)} /> 
-              : <Loading />
-          }
-      </div>
-    );
+    return exchangeRates ? <Main /> : <Loading />;
   }
 }
 
 const mapStateToProps = (state: AppStoreT) => ({
-  exchangeRates: state.current,
+  exchangeRates: state.exchange,
 });
 
 const mapDispatchToProps = (dispatch: (action: ActionT<any>) => void) => ({
-  fetch: () => dispatch(exchange.actions.fetch(null)),
+  fetch: () => dispatch(exchange.actions.fetch())
 });
 
 export default connect(

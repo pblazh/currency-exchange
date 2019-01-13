@@ -1,5 +1,3 @@
-import { SampleT } from "../../../../types";
-
 import {
   ActionCreatorT,
   SelectorsT as AbstractSelectors,
@@ -7,13 +5,13 @@ import {
 } from "../types";
 
 export interface SelectorsT extends AbstractSelectors {
-  all: (s: StoreT) => SampleT;
+  all: (s: StoreT) => any;
 }
 
 export interface ReducersT {
-  set: ActionCreatorT<SampleT | null>;
+  set: ActionCreatorT<any>;
 }
 
 export interface ReducerT {
-  (r: ReducersT, initial: SampleT | null): any;
+  (r: ReducersT, initial: any): any;
 }

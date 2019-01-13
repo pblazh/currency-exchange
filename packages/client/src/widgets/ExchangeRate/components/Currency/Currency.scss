@@ -1,0 +1,75 @@
+.Currency {
+  align-items: center;
+  flex-grow: 1;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+
+  background: linear-gradient(#0052dc, #1b76ff);
+
+  &:nth-child(2n + 1) {
+    background: linear-gradient(#0f4ec8, #194cc4);
+    .Currency__triangle {
+      display: none;
+    }
+  }
+
+  &__base:first-child {
+    padding: 1em 0 0 3em;
+    text-align: left;
+  }
+
+  &__base {
+    text-align: right;
+    padding: 1em 3em 0 0;
+    flex: 1 0 50%;
+  }
+
+  &__code,
+  &__value {
+    font-size: 3.5em;
+  }
+  &__total {
+    margin-top: 1em;
+    opacity: 0.5;
+  }
+  &__value {
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    padding: 0;
+    margin: 0;
+    text-align: inherit;
+    width: 100%;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+    &[readOnly]{
+      cursor: default;
+    }
+  }
+
+  &__triangle {
+    height: 0px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 1;
+    font-size: 60px;
+    left: 50%;
+    transform: translate(-50%, 0) scaleY(0.5);
+    color: #1b76ff;
+    &::after {
+      content: "▼";
+      display: block;
+    }
+  }
+}

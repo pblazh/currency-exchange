@@ -14,3 +14,7 @@ export interface AppStoreT {
     current: SampleT | null;
     history: SampleT[];
 };
+export interface MoneyT {
+    currency: string;
+    amount: number;
+};

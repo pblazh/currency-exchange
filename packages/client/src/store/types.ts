@@ -1,10 +1,12 @@
+import { PairT } from "./pair/types";
+import { SampleT, MoneyT } from "../../../types";
 
 export interface ActionT<T> {
   type: string;
-  payload: T;
+  payload?: T;
 }
 export interface ActionCreatorT<T> {
-  (payload: T): ActionT<T>;
+  (payload?: T): ActionT<T>;
   type: string;
 }
 
@@ -21,16 +23,17 @@ export interface SelectorsT {
 
 export interface ModuleT {
   mountPoint: string;
-  actions: { [key: string]: (payload: any) => any };
+  actions: { [key: string]: (payload?: any) => any };
   reducer: ReducerT<any>;
   selectors: SelectorsT;
-  saga?: Function
+  saga?: Function;
 }
 
 export interface ReducerT<T> {
   (store: T | undefined, action: ActionT<any>): T;
 }
 
-export interface AppStoreT{
-    current: any;
+export interface AppStoreT {
+  exchange: SampleT;
+  accounts: MoneyT[];
 }

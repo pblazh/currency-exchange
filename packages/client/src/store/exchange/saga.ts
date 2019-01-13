@@ -4,12 +4,11 @@ import { current } from "../../api";
 const fetchRSS = (actions: any, selectors: any) =>
   function*(action: { payload: string }) {
     const rss = yield call(current);
-    yield put(actions.set(rss));
+
+    if (rss) yield put(actions.set(rss));
   };
 
 export default (actions: any, selectors: any) =>
   function* saga() {
-    yield all([
-      takeLatest(actions.fetch.type, fetchRSS(actions, selectors)),
-    ]);
+    yield all([takeLatest(actions.fetch.type, fetchRSS(actions, selectors))]);
   };

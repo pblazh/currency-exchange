@@ -15,10 +15,10 @@ const composeEnhancers =
 
 const moduleSagas = (Object.values(modules) as ModuleT[]).reduce(
   (acc: any[], module) => [...acc, module.saga && module.saga()],
-  [],
+  []
 );
 
-function* rootSaga(){
+function* rootSaga() {
   yield all(moduleSagas);
 }
 
@@ -31,11 +31,7 @@ const reducers = (Object.values(modules) as ModuleT[]).reduce(
 );
 
 export default (state = {}) => {
-  const store = createStore(
-    combineReducers(reducers),
-    { ...state },
-    enhancer
-  );
+  const store = createStore(combineReducers(reducers), { ...state }, enhancer);
 
   sagaMiddleware.run(rootSaga);
   return store;

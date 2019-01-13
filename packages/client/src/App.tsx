@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import './App.css';
-import { ExchangeRate } from './widgets';
+import React, { Component } from "react";
+import "./App.css";
+import { ExchangeRate } from "./widgets";
 
 class App extends Component {
   render() {

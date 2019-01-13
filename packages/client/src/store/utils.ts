@@ -14,8 +14,8 @@ export function makeAction<T>(type: string) {
   return action;
 }
 
-export function composeReducers<T>(...reducers: ReducerT<T>[]) {
-  return (store: T, action: ActionT<T>) =>
+export function composeReducers<T>(...reducers: ReducerT<any>[]) {
+  return (store: T, action: ActionT<any>) =>
     reducers.reduce(
       (processedStore, reducer) => reducer(processedStore, action),
       store
