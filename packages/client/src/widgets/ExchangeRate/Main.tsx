@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ActionT, AppStoreT } from "../../store/types";
-import { SampleT, MoneyT } from "../../../../types";
-import { PairT } from "../../store/pair/types";
+import { IMoney, ISample } from "revolute-common";
+import { IAppStore } from "../../store/types";
 import { ExchangePair, Header } from "./components";
-import { pair, exchange } from "../../store/modules";
 
 import "./Main.scss";
 
-interface MainProps {
-  exchange: SampleT;
-  accounts: MoneyT[];
+interface IMainProps {
+  exchange: ISample;
+  accounts: IMoney[];
 }
 
-class Main extends Component<MainProps> {
-  render() {
+class Main extends Component<IMainProps> {
+  public render() {
     const { exchange, accounts } = this.props;
     return (
       <div className="ExchangeRate">
@@ -27,17 +25,10 @@ class Main extends Component<MainProps> {
   }
 }
 
-const mapStateToProps = (state: AppStoreT) => ({
-  exchangeRates: state.exchange,
+const mapStateToProps = (state: IAppStore) => ({
   accounts: state.accounts,
-  exchange: state.exchange
+  exchange: state.exchange,
+  exchangeRates: state.exchange,
 });
 
-const mapDispatchToProps = (dispatch: (action: ActionT<any>) => void) => ({
-  swap: () => dispatch(pair.actions.swap(null))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
+export default connect(mapStateToProps)(Main);

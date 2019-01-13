@@ -1,6 +1,6 @@
 import React from "react";
+import "./Header.scss";
 import Select from "./Select";
-import './Header.scss';
 
 export default () => (
     <div className="ExchangeRate__Header">

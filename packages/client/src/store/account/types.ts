@@ -1,17 +1,15 @@
 import {
-  ActionCreatorT,
-  SelectorsT as AbstractSelectors,
-  StoreT
+  IActionCreator,
+  ISelectors as AbstractSelectors,
+  IStore,
 } from "../types";
 
-export interface SelectorsT extends AbstractSelectors {
-  all: (s: StoreT) => any;
+export interface ISelectors extends AbstractSelectors {
+  all: (s: IStore) => any;
 }
 
-export interface ReducersT {
-  set: ActionCreatorT<any>;
+export interface IReducers {
+  set: IActionCreator<any>;
 }
 
-export interface ReducerT {
-  (r: ReducersT, initial: any): any;
-}
+export type IReducer = (r: IReducers, initial: any) => any;

@@ -3,7 +3,7 @@ import "./App.css";
 import { ExchangeRate } from "./widgets";
 
 class App extends Component {
-  render() {
+  public render() {
     return (
       <div className="App">
         <ExchangeRate />

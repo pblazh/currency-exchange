@@ -1,20 +1,20 @@
-import { ModuleT } from "../types";
+import { IModule } from "../types";
 import createActions from "./actions";
 import createReducer from "./reducer";
-import createSelectors from "./selectors";
 import createSaga from "./saga";
+import createSelectors from "./selectors";
 
-export default function create(mountPoint: string): ModuleT {
+export default function create(mountPoint: string): IModule {
   const actions = createActions(mountPoint);
   const selectors = createSelectors(mountPoint);
   const reducer = createReducer(actions, null);
   const saga = createSaga(actions, selectors);
 
   return {
-    mountPoint,
     actions,
+    mountPoint,
     reducer,
+    saga,
     selectors,
-    saga
   };
 }

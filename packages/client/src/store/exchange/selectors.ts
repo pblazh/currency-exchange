@@ -1,7 +1,7 @@
-import { SelectorsT } from "./types";
+import { ISelectors } from "./types";
 
-export default function(key: string): SelectorsT {
+export default function(key: string): ISelectors {
   return {
-    all: store => store[key]
+    all: (store) => store[key],
   };
 }

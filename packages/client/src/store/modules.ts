@@ -1,8 +1,6 @@
-import exchangeModule from "./exchange";
-import pairModule from "./pair";
 import accountModule from "./account";
+import exchangeModule from "./exchange";
 
-export const pair = pairModule("pair");
 export const exchange = exchangeModule("exchange");
 export const history = exchangeModule("history");
 export const accounts = accountModule("accounts");

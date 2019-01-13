@@ -1,21 +1,19 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 
 import * as modules from "./modules";
-import { ModuleT } from "./types";
+import { IModule } from "./types";
 
-/* eslint-disable */
 const composeEnhancers =
   typeof window === "object" &&
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
-/* eslint-enable */
 
-const moduleSagas = (Object.values(modules) as ModuleT[]).reduce(
+const moduleSagas = (Object.values(modules) as IModule[]).reduce(
   (acc: any[], module) => [...acc, module.saga && module.saga()],
-  []
+  [],
 );
 
 function* rootSaga() {
@@ -25,9 +23,9 @@ function* rootSaga() {
 const sagaMiddleware = createSagaMiddleware();
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
-const reducers = (Object.values(modules) as ModuleT[]).reduce(
+const reducers = (Object.values(modules) as IModule[]).reduce(
   (acc, module) => ({ ...acc, [module.mountPoint]: module.reducer }),
-  {}
+  {},
 );
 
 export default (state = {}) => {

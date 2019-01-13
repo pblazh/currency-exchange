@@ -2,24 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./App";
-import createAppStore from "./store/createStore";
 import * as serviceWorker from "./serviceWorker";
+import createAppStore from "./store/createStore";
 
 const initialStore = {
   accounts: [
     {
+      amount: 100,
       currency: "EUR",
-      amount: 100
     },
     {
+      amount: 200,
       currency: "USD",
-      amount: 200
     },
     {
+      amount: 300,
       currency: "GBP",
-      amount: 300
-    }
-  ]
+    },
+  ],
 }; // get if from SSR
 const store = createAppStore(initialStore);
 
@@ -27,7 +27,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,47 +1,46 @@
+import { ICurrency, ISample } from "revolute-common";
 import { promisify } from "util";
 import { parseString } from "xml2js";
-//import { CurrencyT, SampleT } from "revolute-types";
-import { CurrencyT, SampleT } from "../../../types";
 
-interface ParsedSampleEntryT {
+interface IParsedSampleEntry {
   $: {
     currency: string;
     rate: string;
   };
 }
 
-interface ParsedSampleT {
+interface IParsedSample {
   $: {
     time: string;
   };
-  Cube?: ParsedSampleEntryT[];
+  Cube?: IParsedSampleEntry[];
 }
 
-interface ParsedHistorySampleT {
+interface IParsedHistorySample {
   "gesmes:Envelope": {
-    Cube: { Cube: ParsedSampleT[] }[];
+    Cube: Array<{ Cube: IParsedSample[] }>;
   };
 }
 
-const parseHistorySample = promisify<string, ParsedHistorySampleT>(parseString);
+const parseHistorySample = promisify<string, IParsedHistorySample>(parseString);
 
 export const convertDate = (dateString: string): Date => {
   const params: number[] = dateString.split("-").map(Number);
   return new Date(params[0], params[1] - 1, params[2]);
 };
 
-const itemToCurrency = (item: ParsedSampleEntryT): CurrencyT => ({
+const itemToCurrency = (item: IParsedSampleEntry): ICurrency => ({
   currency: item.$.currency,
-  rate: parseFloat(item.$.rate)
+  rate: parseFloat(item.$.rate),
 });
 
-const sampleToCurrency = (item: ParsedSampleT): SampleT => ({
+const ISampleoCurrency = (item: IParsedSample): ISample => ({
+  currencies: item.Cube ? item.Cube.map(itemToCurrency) : [],
   updated: convertDate(item.$.time).getTime(),
-  currencies: item.Cube ? item.Cube.map(itemToCurrency) : []
 });
 
-export const xml2currenciesList = (xml: string): Promise<SampleT[]> =>
-  parseHistorySample(xml).then((parsedXml: ParsedHistorySampleT) => {
+export const xml2currenciesList = (xml: string): Promise<ISample[]> =>
+  parseHistorySample(xml).then((parsedXml: IParsedHistorySample) => {
     const samplesList = parsedXml["gesmes:Envelope"].Cube[0].Cube || [];
-    return samplesList ? samplesList.map(sampleToCurrency) : [];
+    return samplesList ? samplesList.map(ISampleoCurrency) : [];
   });

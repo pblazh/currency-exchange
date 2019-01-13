@@ -1,46 +1,44 @@
-import React, {
-  Component,
-  SyntheticEvent,
-  ChangeEvent,
-  InputHTMLAttributes
-} from "react";
+import React, { ChangeEvent, Component } from "react";
+import { IMoney } from "revolute-common";
 import "./Currency.scss";
 import Dots from "./Dots";
-import { MoneyT } from "../../../../../../types";
 
 const formatCurrency = (currency: string, n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency }).format(n);
 
-const formatValue = (n: number) => (n ? `+${n}` : "0");
+const formatValue = (n: number) => (n === 0 ? "0" : `-${n}`);
 
-interface CurrencyProps {
-  accounts: MoneyT[];
+interface ICurrencyProps {
+  accounts: IMoney[];
   n: number;
+  rate?: number;
   value?: number;
-  from?: MoneyT;
+  from?: IMoney;
   onChange?: (value: number) => void;
 }
-interface CurrencyState {
+interface ICurrencyState {
   n: number;
   value: number;
 }
 
-export default class Currency extends Component<CurrencyProps, CurrencyState> {
-  state = {
+export default class Currency extends Component<ICurrencyProps, ICurrencyState> {
+  public state = {
+    n: 0,
     value: 0,
-    n: 0
   };
-  _onChange = (ev: ChangeEvent<HTMLInputElement>) => {
+  public onChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const val = ev.currentTarget.value;
-    let value = val === "+" ? 0 : parseFloat(val);
-    if (isNaN(value)) value = this.state.value;
+    let value = val === "-" ? 0 : Math.abs(parseFloat(val));
+    if (isNaN(value)) { value = this.state.value; }
 
     this.setState({ value });
-    this.props.onChange && this.props.onChange(value);
-  };
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+  }
 
-  render() {
-    const { accounts, n, from, value } = this.props;
+  public render() {
+    const { accounts, n, from, value, rate } = this.props;
     return (
       <div className="Currency">
         <div className="Currency__base">
@@ -54,14 +52,17 @@ export default class Currency extends Component<CurrencyProps, CurrencyState> {
             className="Currency__value"
             type="text"
             readOnly={Boolean(from)}
-            value={value ? `-${value}` : formatValue(this.state.value)}
-            onChange={this._onChange}
+            value={
+              value ? `+${value.toFixed(2)}` : formatValue(this.state.value)
+            }
+            onChange={this.onChange}
           />
           <div className="Currency__total">
             {from &&
+              rate &&
               `${formatCurrency(accounts[n].currency, 1)} = ${formatCurrency(
                 from.currency,
-                1
+                rate,
               )}`}
           </div>
         </div>

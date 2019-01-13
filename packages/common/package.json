@@ -1,0 +1,25 @@
+{
+  "name": "revolute-common",
+  "description": "Revolute senior front-end test app types",
+  "author": "Pawel Blazejewski <pblazh@gmail.com>",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "typings": "./build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint --project .",
+    "test": "jest",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@types/node": "^10.12.18"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.12",
+    "jest": "^23.6.0",
+    "prettier": "1.15.3",
+    "ts-jest": "^23.10.5",
+    "typescript": "3.2.2"
+  }
+}

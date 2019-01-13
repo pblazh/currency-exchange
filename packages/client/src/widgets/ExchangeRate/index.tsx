@@ -1,35 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ActionT, AppStoreT } from "../../store/types";
-import { SampleT } from "../../../../types";
+import { ISample } from "revolute-common";
 import { exchange } from "../../store/modules";
+import { IAction, IAppStore } from "../../store/types";
 import { Loading } from "./components";
 import Main from "./Main";
 
-interface ExchangeRateProps {
-  exchangeRates: SampleT;
+interface IExchangeRateProps {
+  exchangeRates: ISample;
   fetch: any;
 }
 
-class ExchangeRate extends Component<ExchangeRateProps> {
-  componentDidMount() {
+class ExchangeRate extends Component<IExchangeRateProps> {
+  public componentDidMount() {
     this.props.fetch();
   }
-  render() {
+  public render() {
     const { exchangeRates } = this.props;
     return exchangeRates ? <Main /> : <Loading />;
   }
 }
 
-const mapStateToProps = (state: AppStoreT) => ({
+const mapStateToProps = (state: IAppStore) => ({
   exchangeRates: state.exchange,
 });
 
-const mapDispatchToProps = (dispatch: (action: ActionT<any>) => void) => ({
-  fetch: () => dispatch(exchange.actions.fetch())
+const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
+  fetch: () => dispatch(exchange.actions.fetch()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ExchangeRate);

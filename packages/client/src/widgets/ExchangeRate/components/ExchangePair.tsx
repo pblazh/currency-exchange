@@ -1,49 +1,56 @@
 import React, { Component } from "react";
-import { MoneyT, SampleT } from "../../../../../types";
+import { exchange, IMoney, ISample } from "revolute-common";
 import Currency from "./Currency";
-import { accounts } from "../../../store/modules";
 
-interface ExchangePairProps {
-  accounts: MoneyT[];
-  exchange: SampleT;
+interface IProps {
+  accounts: IMoney[];
+  exchange: ISample;
 }
-interface ExchangePairState {
-  from: MoneyT;
-  to: MoneyT;
+interface IState {
+  from: IMoney;
+  to: IMoney;
+  rate: number;
 }
-const exchange = (from: MoneyT, to: MoneyT, rates: SampleT) => ({
-  ...to,
-  amount: from.amount * 2,
-});
-
 export default class ExchangePair extends Component<
-  ExchangePairProps,
-  ExchangePairState
+  IProps,
+  IState
 > {
-  constructor(props: ExchangePairProps) {
+  constructor(props: IProps) {
     super(props);
-    this.state = {
-      from: { currency: props.accounts[0].currency, amount: 0 },
-      to: { currency: props.accounts[2].currency, amount: 0 }
-    };
+    const rate = exchange(
+      { ...this.props.accounts[0], amount: 1 },
+      this.props.accounts[2],
+      this.props.exchange,
+    );
+    if (!(rate instanceof Error)) {
+      this.state = {
+        from: { currency: props.accounts[0].currency, amount: 0 },
+        rate: rate.amount,
+        to: { currency: props.accounts[2].currency, amount: 0 },
+      };
+    }
   }
-  _onChange = (n: number) => {
+  public onChange = (n: number) => {
     const from = { currency: this.state.from.currency, amount: n };
-    this.setState({
-      from,
-      to: exchange(from, this.state.to, this.props.exchange),
-    });
-  };
+    const to = exchange(from, this.state.to, this.props.exchange);
+    if (!(to instanceof Error)) {
+      this.setState({
+        from,
+        to,
+      });
+    }
+  }
 
-  render() {
+  public render() {
     const { accounts } = this.props;
     return (
       <>
-        <Currency accounts={accounts} n={0} onChange={this._onChange} />
+        <Currency accounts={accounts} n={0} onChange={this.onChange} />
         <Currency
           accounts={accounts}
           n={2}
           from={accounts[0]}
+          rate={this.state.rate}
           value={this.state.to.amount}
         />
       </>

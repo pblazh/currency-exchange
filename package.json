@@ -1,25 +1,26 @@
 {
-  "name": "revolute",
-  "version": "0.1.0",
-  "description": "Revolute senior front-end test app",
+  "description": "Revolute senior test app",
   "author": "Pawel Blazejewski <pblazh@gmail.com>",
   "repository": "https://androbot@bitbucket.org/androbot/revolute.git",
   "license": "MIT",
   "private": true,
-  "worksapces": [
+  "workspaces": [
     "packages/*"
   ],
-  "scripts":{
-      "start": "wsrun --exclude-missing start",
-      "test": "wsrun --exclude-missing test",
-      "build": "wsrun --exclude-missing build"
+  "scripts": {
+    "start": "wsrun --exclude-missing start",
+    "lint": "wsrun --exclude-missing lint",
+    "test": "wsrun --exclude-missing test",
+    "build": "wsrun --exclude-missing build"
   },
   "engines": {
     "node": ">=8",
     "yarn": ">=1.2.0 <2.0.0"
   },
   "devDependencies": {
+    "prettier": "^1.15.3",
     "tslint": "^5.12.1",
+    "typescript": "^3.2.2",
     "wsrun": "^3.6.2"
   }
 }

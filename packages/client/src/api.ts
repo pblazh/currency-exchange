@@ -2,13 +2,14 @@ import config from "./config";
 
 const fetchJSON = (url: string) => () =>
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(`Network error at ${url}`);
     })
-    .catch(err => {
+    .catch((err) => {
+      // tslint:disable-next-line
       console.error(err);
     });
 

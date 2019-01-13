@@ -1,19 +1,17 @@
-import { SampleT } from "../../../../types";
+import { ISample } from "revolute-common";
 
 import {
-  ActionCreatorT,
-  SelectorsT as AbstractSelectors,
-  StoreT
+  IActionCreator,
+  ISelectors as AbstractSelectors,
+  IStore,
 } from "../types";
 
-export interface SelectorsT extends AbstractSelectors {
-  all: (s: StoreT) => SampleT;
+export interface ISelectors extends AbstractSelectors {
+  all: (s: IStore) => ISample;
 }
 
-export interface ReducersT {
-  set: ActionCreatorT<SampleT | null>;
+export interface IReducers {
+  set: IActionCreator<ISample | null>;
 }
 
-export interface ReducerT {
-  (r: ReducersT, initial: SampleT | null): any;
-}
+export type IReducer = (r: IReducers, initial: ISample | null) => any;

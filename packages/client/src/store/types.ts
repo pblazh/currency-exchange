@@ -1,39 +1,34 @@
-import { PairT } from "./pair/types";
-import { SampleT, MoneyT } from "../../../types";
+import { IMoney, ISample } from "revolute-common";
 
-export interface ActionT<T> {
+export interface IAction<T> {
   type: string;
   payload?: T;
 }
-export interface ActionCreatorT<T> {
-  (payload?: T): ActionT<T>;
+export interface IActionCreator<T> {
+  (payload?: T): IAction<T>;
   type: string;
 }
 
-export interface StoreT {
+export interface IStore {
   [key: string]: any;
 }
 
-export interface SelectorT {
-  (store: StoreT, ...rest: any[]): any;
-}
-export interface SelectorsT {
+export type SelectorT = (store: IStore, ...rest: any[]) => any;
+export interface ISelectors {
   [key: string]: SelectorT;
 }
 
-export interface ModuleT {
+export interface IModule {
   mountPoint: string;
   actions: { [key: string]: (payload?: any) => any };
-  reducer: ReducerT<any>;
-  selectors: SelectorsT;
-  saga?: Function;
+  reducer: IReducer<any>;
+  selectors: ISelectors;
+  saga?: () => any;
 }
 
-export interface ReducerT<T> {
-  (store: T | undefined, action: ActionT<any>): T;
-}
+export type IReducer<T> = (store: T | undefined, action: IAction<any>) => T;
 
-export interface AppStoreT {
-  exchange: SampleT;
-  accounts: MoneyT[];
+export interface IAppStore {
+  exchange: ISample;
+  accounts: IMoney[];
 }

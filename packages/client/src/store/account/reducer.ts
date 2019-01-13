@@ -1,6 +1,6 @@
 import { makeReplaceReducer } from "../utils";
-import { ReducersT } from "./types";
+import { IReducers } from "./types";
 
-export default function({ set }: ReducersT, initial: any) {
+export default function({ set }: IReducers, initial: any) {
   return makeReplaceReducer(set, initial);
 }
