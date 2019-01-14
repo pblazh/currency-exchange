@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import "./App.css";
+import { connect } from "react-redux";
+import { accounts } from "./store/modules";
+import { IAction } from "./store/types";
 import { ExchangeRate } from "./widgets";
 
-class App extends Component {
+import "./App.css";
+
+interface IProps {
+  fetch: any;
+}
+class App extends Component<IProps> {
+  public componentDidMount() {
+    this.props.fetch();
+  }
   public render() {
     return (
       <div className="App">
@@ -12,4 +22,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
+  fetch: () => dispatch(accounts.actions.fetch()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(App);

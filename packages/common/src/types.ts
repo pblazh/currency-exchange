@@ -11,7 +11,7 @@ export interface ISample {
 }
 
 export interface IAppStore {
-    accounts: IMoney | null;
+    accounts: IMoney[] | null;
     exchange: ISample | null;
     history: ISample[];
 }

@@ -5,22 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import createAppStore from "./store/createStore";
 
-const initialStore = {
-  accounts: [
-    {
-      amount: 100,
-      currency: "EUR",
-    },
-    {
-      amount: 200,
-      currency: "USD",
-    },
-    {
-      amount: 300,
-      currency: "GBP",
-    },
-  ],
-}; // get if from SSR
+const initialStore = undefined; // get if from SSR
 const store = createAppStore(initialStore);
 
 ReactDOM.render(

@@ -1,9 +1,9 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { current } from "../../api";
+import { exchange } from "../../api";
 
 const fetchRSS = (actions: any, selectors: any) =>
   function*(action: { payload: string }) {
-    const rss = yield call(current);
+    const rss = yield call(exchange);
 
     if (rss) { yield put(actions.set(rss)); }
   };

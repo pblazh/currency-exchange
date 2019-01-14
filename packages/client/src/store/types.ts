@@ -1,5 +1,3 @@
-import { IMoney, ISample } from "revolute-common";
-
 export interface IAction<T> {
   type: string;
   payload?: T;
@@ -27,8 +25,3 @@ export interface IModule {
 }
 
 export type IReducer<T> = (store: T | undefined, action: IAction<any>) => T;
-
-export interface IAppStore {
-  exchange: ISample;
-  accounts: IMoney[];
-}

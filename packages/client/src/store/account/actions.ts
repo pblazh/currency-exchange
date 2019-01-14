@@ -3,7 +3,8 @@ import { makeAction } from "../utils";
 
 export default function(mountPoint: string) {
   const actions = {
-    set: makeAction<ISample | null>(`revolute.simple.${mountPoint}.set`),
+    fetch: makeAction<void>(`revolute.account.${mountPoint}.fetch`),
+    set: makeAction<ISample | null>(`revolute.account.${mountPoint}.set`),
   };
 
   return actions;

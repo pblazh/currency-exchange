@@ -4,6 +4,7 @@ import { join } from "path";
 import { ISample } from "revolute-common";
 import { promisify } from "util";
 
+import accounts from "./fixtures/fakeAccounts";
 import { xml2currenciesList } from "./util";
 
 const readFileP = promisify<string, Buffer>(readFile);
@@ -16,7 +17,7 @@ function readDataFile(fileName: string): Promise<ISample[]> {
 
 const router = express.Router();
 
-router.get("/rate/current", (req, res) =>
+router.get("/rate/exchange", (req, res) =>
   readDataFile("fixtures/eurofxref-hist.xml").then((list) => {
     res.json(list[0]);
   }),
@@ -34,10 +35,12 @@ router.get("/store", (req, res) =>
     readDataFile("fixtures/eurofxref-hist-90d.xml"),
   ]).then(([current, history]) => {
     res.json({
-        current: current[0],
-        history,
+      current: current[0],
+      history,
     });
   }),
 );
+
+router.get("/account", (req, res) => res.json(accounts));
 
 export default router;
