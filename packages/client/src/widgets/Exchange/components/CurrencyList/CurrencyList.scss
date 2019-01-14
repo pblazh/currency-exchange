@@ -1,0 +1,45 @@
+.CurrencyList {
+  align-items: center;
+  flex-grow: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: relative;
+
+  background: linear-gradient(#0052dc, #1b76ff);
+
+  &:nth-child(2n + 1) {
+    background: linear-gradient(#0f4ec8, #194cc4);
+    .CurrencyList__triangle {
+      display: none;
+    }
+  }
+
+  &__carousel {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  @for $i from 1 through 100 {
+    &__carousel--#{$i} .Currency {
+      transform: translateX(#{$i* -100%});
+    }
+  }
+
+  &__triangle {
+    height: 0px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 1;
+    font-size: 60px;
+    left: 50%;
+    transform: translate(-50%, 0) scaleY(0.5);
+    color: #1b76ff;
+    &::after {
+      content: "▼";
+      display: block;
+    }
+  }
+}

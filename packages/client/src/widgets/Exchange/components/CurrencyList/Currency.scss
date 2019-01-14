@@ -1,23 +1,17 @@
 .Currency {
-  align-items: center;
-  flex-grow: 1;
-  color: white;
   display: flex;
   flex-wrap: wrap;
-  position: relative;
+  flex: 0 0 100%;
 
-  background: linear-gradient(#0052dc, #1b76ff);
-
-  &:nth-child(2n + 1) {
-    background: linear-gradient(#0f4ec8, #194cc4);
-    .Currency__triangle {
-      display: none;
-    }
-  }
+  transform: translateX(0);
+  will-change: transform;
+  transition: transform .5s;
+  transition-timing-function: ease-in-out;
 
   &__base:first-child {
     padding: 1em 0 0 3em;
     text-align: left;
+    flex: 1 0 30%;
   }
 
   &__base {
@@ -39,7 +33,6 @@
     border: none;
     color: inherit;
     font-family: inherit;
-    padding: 0;
     margin: 0;
     text-align: inherit;
     width: 100%;
@@ -55,21 +48,6 @@
     }
     &[readOnly]{
       cursor: default;
-    }
-  }
-
-  &__triangle {
-    height: 0px;
-    position: absolute;
-    bottom: 10px;
-    z-index: 1;
-    font-size: 60px;
-    left: 50%;
-    transform: translate(-50%, 0) scaleY(0.5);
-    color: #1b76ff;
-    &::after {
-      content: "▼";
-      display: block;
     }
   }
 }
