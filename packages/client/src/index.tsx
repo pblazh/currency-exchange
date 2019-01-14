@@ -1,9 +1,9 @@
+import createAppStore from "@store/createStore";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import createAppStore from "./store/createStore";
 
 const initialStore = undefined; // get if from SSR
 const store = createAppStore(initialStore);

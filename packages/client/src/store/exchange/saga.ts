@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { exchange } from "../../api";
+import { exchange } from "../../api/api";
 
 const fetchRSS = (actions: any, selectors: any) =>
   function*(action: { payload: string }) {

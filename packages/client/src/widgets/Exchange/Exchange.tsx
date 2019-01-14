@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import { IAppStore, IMoney, ISample } from "revolute-common";
 import { ExchangePair, Header } from "./components";
 
-import "./Main.scss";
+import "./Exchange.scss";
 
 interface IProps {
   exchange: ISample | null;
   accounts: IMoney[] | null;
 }
 
-class Main extends Component<IProps> {
+class Exchange extends Component<IProps> {
   public render() {
     const { exchange, accounts } = this.props;
     return (
-      <div className="ExchangeRate">
+      <div className="Exchange">
         <Header />
         {accounts && accounts.length > 1 && exchange && (
           <ExchangePair accounts={accounts} exchange={exchange} />
@@ -29,4 +29,4 @@ const mapStateToProps = (state: IAppStore) => ({
   exchange: state.exchange,
 });
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(Exchange);

@@ -1,5 +1,4 @@
 {
-  "extends": "./pathConfig.json",
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
@@ -19,7 +18,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@atoms": ["widgets/atoms"],
+      "@store/*": ["store/*"]
+    }
   },
   "include": [
     "src"

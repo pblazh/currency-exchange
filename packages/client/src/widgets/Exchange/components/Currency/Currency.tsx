@@ -1,7 +1,7 @@
+import { Pager } from "@atoms";
 import React, { ChangeEvent, Component } from "react";
 import { IMoney } from "revolute-common";
 import "./Currency.scss";
-import Dots from "./Dots";
 
 const formatCurrency = (currency: string, n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency }).format(n);
@@ -66,7 +66,7 @@ export default class Currency extends Component<ICurrencyProps, ICurrencyState> 
               )}`}
           </div>
         </div>
-        <Dots active={n} n={accounts.length} />
+        <Pager active={n} pages={accounts.length} />
 
         <div className="Currency__triangle" />
       </div>

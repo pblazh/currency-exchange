@@ -1,9 +1,9 @@
-.Dots {
+.Pager {
   display: flex;
   flex: 0 1 100%;
   justify-content: center;
 
-  &__dot {
+  &__page {
     background-color: white;
     border-radius: 50%;
     display: inline-block;

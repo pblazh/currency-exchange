@@ -1,10 +1,10 @@
+import { Loading } from "@atoms";
+import { exchange as exchangeModule } from "@store/modules";
+import { IAction } from "@store/types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppStore, ISample } from "revolute-common";
-import { exchange as exchangeModule } from "../../store/modules";
-import { IAction } from "../../store/types";
-import { Loading } from "./components";
-import Main from "./Main";
+import Exchange from "./Exchange";
 
 interface IProps {
   exchange: ISample | null;
@@ -17,7 +17,7 @@ class ExchangeRate extends Component<IProps> {
   }
   public render() {
     const { exchange } = this.props;
-    return exchange ? <Main /> : <Loading />;
+    return exchange ? <Exchange /> : <Loading />;
   }
 }
 

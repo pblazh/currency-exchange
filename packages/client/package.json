@@ -5,8 +5,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "lint": "tslint --project .",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -40,6 +40,8 @@
   ],
   "devDependencies": {
     "@types/jest": "^23.3.12",
-    "node-sass": "^4.11.0"
+    "customize-cra": "^0.2.9",
+    "node-sass": "^4.11.0",
+    "react-app-rewired": "^2.0.2"
   }
 }

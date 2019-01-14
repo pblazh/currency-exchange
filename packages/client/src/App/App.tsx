@@ -1,8 +1,8 @@
+import { accounts } from "@store/modules";
+import { IAction } from "@store/types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { accounts } from "./store/modules";
-import { IAction } from "./store/types";
-import { ExchangeRate } from "./widgets";
+import { Exchange } from "../widgets";
 
 import "./App.css";
 
@@ -16,7 +16,7 @@ class App extends Component<IProps> {
   public render() {
     return (
       <div className="App">
-        <ExchangeRate />
+        <Exchange />
       </div>
     );
   }
