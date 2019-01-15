@@ -1,10 +1,9 @@
-import { isIP } from "net";
+import { Money } from "@atoms";
 import React, { ChangeEvent, Component } from "react";
 import { IMoney } from "revolute-common";
-import "./Currency.scss";
+import { IIncome } from "../../types";
 
-const formatCurrency = (currency: string, n: number) =>
-  new Intl.NumberFormat("en-US", { style: "currency", currency }).format(n);
+import "./Currency.scss";
 
 const formatValue = (input: boolean, n: number) => {
   if (n === 0 ) {
@@ -13,13 +12,8 @@ const formatValue = (input: boolean, n: number) => {
   return input ? `+${n.toFixed(2)}` : `-${n}`;
 };
 
-interface IIncomeAccount extends IMoney {
-  income?: number;
-  rate?: IMoney;
-}
-
 interface IProps {
-  account: IIncomeAccount;
+  account: IIncome;
   value: number;
   onChange?: (value: number) => void;
 }
@@ -36,12 +30,13 @@ export default class Currency extends Component<IProps> {
   public render() {
     const { account, value } = this.props;
     const isOutput = Boolean(account.rate);
+
     return (
         <div className="Currency">
           <div className="Currency__base">
             <div className="Currency__code">{account.currency}</div>
             <div className="Currency__total">
-              You have {formatCurrency(account.currency, account.amount)}
+              You have <Money money={account}/>
             </div>
           </div>
           <div className="Currency__base">
@@ -53,14 +48,17 @@ export default class Currency extends Component<IProps> {
               onChange={this.onChange}
             />
             <div className="Currency__total">
-              {account.rate &&
-                `${formatCurrency(account.currency, 1)} = ${formatCurrency(
-                  account.rate.currency,
-                  account.rate.amount,
-                )}`}
+              { account.rate && renderRate(account) }
             </div>
           </div>
       </div>
     );
   }
 }
+
+const renderRate = (income: IIncome) => (
+  <>
+    <Money money={{...income, amount: 1}} />
+    = <Money fractions money={{...income.rate as IMoney}} />
+  </>
+);

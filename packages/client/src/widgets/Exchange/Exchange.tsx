@@ -4,7 +4,7 @@ import { IAction } from "@store/types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppStore, IMoney, ISample } from "revolute-common";
-import { ExchangePair, Header } from "./components";
+import { ExchangePair } from "./components";
 
 import "./Exchange.scss";
 
@@ -24,7 +24,6 @@ class Exchange extends Component<IProps> {
     exchange
      ? (
     <div className="Exchange">
-        <Header />
         {accounts && accounts.length > 1 && exchange && (
           <ExchangePair accounts={accounts} exchange={exchange} />
         )}
