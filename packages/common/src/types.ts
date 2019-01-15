@@ -1,3 +1,10 @@
+export interface IError {
+    error: true;
+    message: string;
+}
+
+export const isError = (some: IError | any): some is IError => some && some.error;
+
 export interface ICurrency {
     currency: string;
     rate: number;

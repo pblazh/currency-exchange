@@ -7,14 +7,15 @@ import "./Header.scss";
 interface IProps {
   from: IMoney;
   to: IMoney;
+  onExchange: () => void;
 }
 
-export default ({from, to}: IProps) => (
+export default ({from, to, onExchange}: IProps) => (
     <div className="Exchange__Header">
         <button>Cancel</button>
         <Select>
             <Money money={from}/> = <Money fractions money={to}/>
         </Select>
-        <button>Exchange</button>
+        <button onClick={onExchange}>Exchange</button>
     </div>
 );

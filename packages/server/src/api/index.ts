@@ -10,7 +10,7 @@ import { randomize, xml2currenciesList } from "./util";
 const readFileP = promisify<string, Buffer>(readFile);
 
 function readDataFile(fileName: string): Promise<ISample[]> {
-  return readFileP(join(__dirname, fileName)).then((l) =>
+  return readFileP(join(__dirname, fileName)).then(l =>
     xml2currenciesList(l.toString()),
   );
 }
@@ -20,13 +20,13 @@ const router = express.Router();
 router.get("/rate/exchange", (req, res) =>
   readDataFile("fixtures/eurofxref-hist.xml")
     .then(randomize)
-    .then((list) => {
+    .then(list => {
       res.json(list[0]);
     }),
 );
 
 router.get("/rate/history", (req, res) =>
-  readDataFile("fixtures/eurofxref-hist-90d.xml").then((list) => {
+  readDataFile("fixtures/eurofxref-hist-90d.xml").then(list => {
     res.json(list);
   }),
 );
@@ -43,6 +43,13 @@ router.get("/store", (req, res) =>
   }),
 );
 
-router.get("/account", (req, res) => res.json(accounts));
+router.get("/account", (req, res) =>
+  res.json(
+    accounts.map(account => ({
+      ...account,
+      amount: account.amount * Math.random(),
+    })),
+  ),
+);
 
 export default router;

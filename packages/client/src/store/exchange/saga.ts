@@ -12,7 +12,7 @@ const createFetchAction = (mountPoint: string) => ({
 const createFetchOne = (actions: any) =>
   function* fetchExchangeRates() {
     const rates = yield call(exchange);
-    if (rates) { yield put(actions.set(rates)); }
+    yield put(actions.set(rates));
   };
 
 const createFetch = (actions: any) =>

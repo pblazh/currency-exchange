@@ -7,5 +7,5 @@
       "@widgets": ["widgets"],
       "@store/*": ["store/*"]
     }
-  },
+  }
 }

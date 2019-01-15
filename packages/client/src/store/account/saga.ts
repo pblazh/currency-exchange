@@ -1,11 +1,11 @@
+import { account } from "@api";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { account } from "../../api/api";
 
 const fetchRSS = (actions: any) =>
   function*(action: { payload: string }) {
-    const rss = yield call(account);
+    const data = yield call(account);
 
-    if (rss) { yield put(actions.set(rss)); }
+    if (data) { yield put(actions.set(data)); }
   };
 
 export default (actions: any) =>

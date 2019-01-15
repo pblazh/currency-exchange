@@ -1,3 +1,4 @@
+import { IError } from "revolute-common";
 import config from "./config";
 
 const fetchJSON = (url: string) => () =>
@@ -9,8 +10,10 @@ const fetchJSON = (url: string) => () =>
       throw new Error(`Network error at ${url}`);
     })
     .catch((err) => {
-      // tslint:disable-next-line
-      console.error(err);
+      return {
+        error: true,
+        message: err.message,
+      } as IError;
     });
 
 export const account = fetchJSON(config.account);

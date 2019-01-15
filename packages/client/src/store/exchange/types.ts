@@ -1,4 +1,4 @@
-import { ISample } from "revolute-common";
+import { IError, ISample } from "revolute-common";
 
 import {
   IActionCreator,
@@ -11,7 +11,7 @@ export interface ISelectors extends AbstractSelectors {
 }
 
 export interface IReducers {
-  set: IActionCreator<ISample | null>;
+  set: IActionCreator<ISample | IError | null>;
 }
 
 export type IReducer = (r: IReducers, initial: ISample | null) => any;

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./Loading.scss";
 
-export default () => <div className="Loading">Loading...</div>;
+export default ({ children }: { children: ReactNode }) => (
+  <div className="Loading">{children}</div>
+);

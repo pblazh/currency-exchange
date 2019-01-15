@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { exchange, IMoney, ISample } from "revolute-common";
 import { Header } from "../components";
 import { IIncome, IOutcome } from "../types";
+import { makeIncomes, makeOutcomes } from "../utils";
 import CurrencyList from "./CurrencyList";
 
 interface IProps {
   accounts: IMoney[];
   exchange: ISample;
+  process: (what: IMoney, to: string) => void;
 }
 interface IState {
   amount: number;
@@ -43,7 +45,11 @@ export default class ExchangePair extends Component<IProps, IState> {
 
     return (
       <>
-        <Header from={{ ...from, amount: 1 }} to={currentRate as IMoney} />
+        <Header
+          from={{ ...from, amount: 1 }}
+          to={currentRate as IMoney}
+          onExchange={this.onExchange}
+        />
 
         <CurrencyList
           value={this.state.amount}
@@ -63,6 +69,12 @@ export default class ExchangePair extends Component<IProps, IState> {
     );
   }
 
+  private onExchange = () => {
+    const what: IMoney = {...this.state.from, amount: this.state.amount};
+    const to = this.state.to.currency;
+    this.props.process(what, to);
+  }
+
   private onChange = (value: number) => {
     this.setState({ amount: value });
   }
@@ -79,27 +91,3 @@ export default class ExchangePair extends Component<IProps, IState> {
     });
   }
 }
-
-const makeOutcomes = (accounts: IMoney[], outcome: number) =>
-  accounts.map(account => ({
-    ...account,
-    outcome,
-  }));
-
-const makeIncomes = (from: IMoney, rates: ISample, accounts: IMoney[]) =>
-  accounts.reduce((processed: IIncome[], account: IMoney) => {
-    const rate = exchange({ ...account, amount: 1 }, from, rates);
-    const income = exchange(from, account, rates);
-
-    return income instanceof Error
-      ? processed
-      : [
-          ...processed,
-          {
-            ...account,
-            from,
-            income: income.amount,
-            rate: { ...rate, currency: from.currency } as IMoney,
-          },
-        ];
-  }, []);
