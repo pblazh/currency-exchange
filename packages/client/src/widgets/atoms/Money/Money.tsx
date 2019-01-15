@@ -7,7 +7,7 @@ const formatCurrency = (money: IMoney, fractions: boolean = false) =>
     {
       currency: money.currency,
       style: "currency",
-      ...fractions ? {} : { minimumFractionDigits: 0, maximumFractionDigits: 1 },
+      ...fractions ? {} : { minimumFractionDigits: 0, maximumFractionDigits: 0 },
     },
   ).format(money.amount);
 

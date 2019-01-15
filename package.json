@@ -11,6 +11,7 @@
     "start": "wsrun --exclude-missing start",
     "lint": "wsrun --exclude-missing lint",
     "test": "wsrun --exclude-missing test",
+    "test:watch": "wsrun --exclude-missing test:watch",
     "build": "yarn workspace revolute-common build ; wsrun --exclude-missing build"
   },
   "engines": {

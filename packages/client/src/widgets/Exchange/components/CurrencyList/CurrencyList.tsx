@@ -2,6 +2,7 @@ import { Pager } from "@atoms";
 import React, { ChangeEvent, Component } from "react";
 import { IMoney } from "revolute-common";
 import Currency from "./Currency";
+
 import "./CurrencyList.scss";
 
 interface IIncomeAccount extends IMoney {

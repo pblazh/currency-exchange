@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { exchange, IMoney, ISample } from "revolute-common";
-import { Header } from "../components";
 import { IIncome, IOutcome } from "../types";
 import { makeIncomes, makeOutcomes } from "../utils";
 import CurrencyList from "./CurrencyList";
+import Header from "./Header";
 
 interface IProps {
   accounts: IMoney[];

@@ -1,5 +1,6 @@
 import cx from "classnames";
 import React, { Component, MouseEvent } from "react";
+
 import "./Pager.scss";
 
 interface IProps {
@@ -12,7 +13,8 @@ interface IProps {
 export default class Pager extends Component<IProps> {
 
   public render() {
-    const {pages, active, onChange } = this.props;
+    const { pages } = this.props;
+    const active = Math.min(pages - 1, Math.max(0, this.props.active));
     return (
       <div className= "Pager" >
         {new Array(pages).fill(1).map((_, i) => (

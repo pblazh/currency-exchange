@@ -5,7 +5,7 @@ import { Exchange } from "@widgets";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./App.css";
+import "./App.scss";
 
 interface IProps {
   fetchAccount: any;

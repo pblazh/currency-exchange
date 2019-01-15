@@ -8,6 +8,7 @@
     "build": "tsc",
     "lint": "tslint --project .",
     "test": "jest",
+    "test:watch": "jest test --watchAll",
     "start": "ts-node-dev ./src/index.ts"
   },
   "main": "./build/index.ts",

@@ -8,7 +8,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "lint": "tslint --project .",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test --verbose",
+    "test:watch": "react-scripts test --watchAll",
     "eject": "react-scripts eject"
   },
   "main": "./build/index.ts",

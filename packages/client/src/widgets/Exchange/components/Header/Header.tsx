@@ -1,6 +1,7 @@
-import { Money, Select } from "@atoms";
+// import { Money, Select } from "@atoms";
 import React from "react";
 import { IMoney } from "revolute-common";
+import { Money, Select } from "../../../atoms";
 
 import "./Header.scss";
 
@@ -16,6 +17,6 @@ export default ({from, to, onExchange}: IProps) => (
         <Select>
             <Money money={from}/> = <Money fractions money={to}/>
         </Select>
-        <button onClick={onExchange}>Exchange</button>
+        <button data-test="button-exchange" onClick={onExchange}>Exchange</button>
     </div>
 );

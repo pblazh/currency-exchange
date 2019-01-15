@@ -10,6 +10,7 @@
     "build": "tsc",
     "lint": "tslint --project .",
     "test": "jest",
+    "test:watch": "jest test --watchAll",
     "build:watch": "tsc --watch"
   },
   "dependencies": {
