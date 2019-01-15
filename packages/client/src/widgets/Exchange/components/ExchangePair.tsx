@@ -77,10 +77,6 @@ export default class ExchangePair extends Component<IProps, IState> {
     );
   }
 
-  private onChangeXX = (amount: number) => {
-    this.setState({ amount });
-  }
-
   private onChange = (value: number) => {
     this.setState({ amount: value });
   }

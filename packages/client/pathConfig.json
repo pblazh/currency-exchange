@@ -1,31 +1,11 @@
 {
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "es5",
-    "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "baseUrl": "./src",
     "paths": {
+      "@api": ["api"],
       "@atoms": ["widgets/atoms"],
+      "@widgets": ["widgets"],
       "@store/*": ["store/*"]
     }
   },
-  "include": [
-    "src"
-  ]
 }

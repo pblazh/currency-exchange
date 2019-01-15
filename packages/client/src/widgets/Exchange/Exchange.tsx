@@ -1,3 +1,6 @@
+import { Loading } from "@atoms";
+import { exchange as exchangeModule } from "@store/modules";
+import { IAction } from "@store/types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppStore, IMoney, ISample } from "revolute-common";
@@ -8,18 +11,25 @@ import "./Exchange.scss";
 interface IProps {
   exchange: ISample | null;
   accounts: IMoney[] | null;
+  fetchRates: (timeout?: number) => void;
 }
 
 class Exchange extends Component<IProps> {
+  public componentDidMount() {
+    this.props.fetchRates(3000);
+  }
   public render() {
     const { exchange, accounts } = this.props;
     return (
-      <div className="Exchange">
+    exchange
+     ? (
+    <div className="Exchange">
         <Header />
         {accounts && accounts.length > 1 && exchange && (
           <ExchangePair accounts={accounts} exchange={exchange} />
         )}
-      </div>
+     </div> )
+    : (<Loading />)
     );
   }
 }
@@ -29,4 +39,8 @@ const mapStateToProps = (state: IAppStore) => ({
   exchange: state.exchange,
 });
 
-export default connect(mapStateToProps)(Exchange);
+const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
+  fetchRates: (timeout?: number) => dispatch(exchangeModule.actions.fetch(timeout)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Exchange);

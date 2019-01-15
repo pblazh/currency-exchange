@@ -1,17 +1,18 @@
+import { Loading } from "@atoms";
 import { accounts } from "@store/modules";
 import { IAction } from "@store/types";
+import { Exchange } from "@widgets";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Exchange } from "../widgets";
 
 import "./App.css";
 
 interface IProps {
-  fetch: any;
+  fetchAccount: any;
 }
 class App extends Component<IProps> {
   public componentDidMount() {
-    this.props.fetch();
+    this.props.fetchAccount();
   }
   public render() {
     return (
@@ -23,7 +24,7 @@ class App extends Component<IProps> {
 }
 
 const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
-  fetch: () => dispatch(accounts.actions.fetch()),
+  fetchAccount: () => dispatch(accounts.actions.fetch()),
 });
 
 export default connect(
