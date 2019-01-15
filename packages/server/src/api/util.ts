@@ -44,3 +44,13 @@ export const xml2currenciesList = (xml: string): Promise<ISample[]> =>
     const samplesList = parsedXml["gesmes:Envelope"].Cube[0].Cube || [];
     return samplesList ? samplesList.map(ISampleoCurrency) : [];
   });
+
+export const randomize = (rates: ISample[]): ISample[] =>
+  rates.map(
+    rate => ({
+      currencies: rate.currencies.map(
+        currency => ({...currency, rate: currency.rate * (0.9 + Math.random() * 0.1)}),
+      ),
+      updated: rate.updated,
+    }),
+  );

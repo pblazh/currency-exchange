@@ -5,7 +5,7 @@ import { ISample } from "revolute-common";
 import { promisify } from "util";
 
 import accounts from "./fixtures/fakeAccounts";
-import { xml2currenciesList } from "./util";
+import { randomize, xml2currenciesList } from "./util";
 
 const readFileP = promisify<string, Buffer>(readFile);
 
@@ -18,9 +18,11 @@ function readDataFile(fileName: string): Promise<ISample[]> {
 const router = express.Router();
 
 router.get("/rate/exchange", (req, res) =>
-  readDataFile("fixtures/eurofxref-hist.xml").then((list) => {
-    res.json(list[0]);
-  }),
+  readDataFile("fixtures/eurofxref-hist.xml")
+    .then(randomize)
+    .then((list) => {
+      res.json(list[0]);
+    }),
 );
 
 router.get("/rate/history", (req, res) =>

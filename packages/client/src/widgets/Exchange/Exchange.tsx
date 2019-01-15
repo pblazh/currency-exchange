@@ -16,7 +16,7 @@ interface IProps {
 
 class Exchange extends Component<IProps> {
   public componentDidMount() {
-    this.props.fetchRates(3000);
+    this.props.fetchRates(5000);
   }
   public render() {
     const { exchange, accounts } = this.props;
