@@ -1,21 +1,20 @@
 .Pager {
-  display: flex;
-  flex: 0 0 2em;
-  justify-content: center;
+    display: flex;
+    flex: 0 0 2em;
+    justify-content: center;
 
-  &__page {
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    display: inline-block;
-    height: 0.7em;
-    margin: 0.3em;
-    width: 0.7em;
-
-    opacity: 0.5;
-    &--active {
-      opacity: 1;
-      cursor: default;
+    &__page {
+        background-color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: inline-block;
+        height: 0.7em;
+        margin: 0.3em;
+        opacity: 0.5;
+        width: 0.7em;
+        &--active {
+            opacity: 1;
+            cursor: default;
+        }
     }
-  }
 }

@@ -1,24 +1,24 @@
 .Select {
-  align-items: center;
-  background-color: #0550d3;
-  border-radius: 7px;
-  border: solid 3px #2370ed;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.3em 0 0.3em 0.7em;
-  white-space: nowrap;
-  font-size: 1.3em;
+    align-items: center;
+    background-color: #0550d3;
+    border-radius: 7px;
+    border: solid 3px #2370ed;
+    display: flex;
+    font-size: 1.3em;
+    justify-content: space-between;
+    padding: 0.3em 0 0.3em 0.7em;
+    white-space: nowrap;
 
-  &__value {
-    display: inline-block;
-  }
-
-  &__arrow {
-    margin: 0 0.5em;
-    &::after {
-      content: "▼";
-      display: block;
-      font-size: 0.7em;
+    &__value {
+        display: inline-block;
     }
-  }
+
+    &__arrow {
+        margin: 0 0.5em;
+        &::after {
+            content: "▼";
+            display: block;
+            font-size: 0.7em;
+        }
+    }
 }
