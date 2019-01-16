@@ -44,6 +44,7 @@ So a module is a plain JavaScript function which:
  1. MUST export a default function `creator` which accepts one argument of type string a mount point.
  2. The `create` function MUST return an object representing the module instance
  3. The module instance object has to have the following structure:
+    ```JavaScript
     {
         mountPoint: String,                         // mount point passed to the create function
         actions: {[key: string]: ActionCreator},    // Array of action creators
@@ -51,18 +52,19 @@ So a module is a plain JavaScript function which:
         reducer: (state, action) => state,          // Redux reducer
         saga: function,                             // optional, Redux saga
     }
+    ```
  4. Saga MUST NOT have dependencies outside the module
  5. Actions, selectors, sagas MUST NOT depend on the mount point of a module
  6. An action creator MUST have property `type`
  7. Action types MUST have the form '<domain>.<module>.<mount_point>.<action>'
 
-Correlation with The Atomic Workflow.
--------------------------------------
+Correlation with The Atomic design.
+-----------------------------------
 The approach with UI components was the same, to make them modular. The solution is based on Atomic design principles.
 I introduced three-level separation of UI: Widgets, Components, and Atoms. 
-- Widget. The independent part, which could be attached to the page. It is the only thing which is bound to the non-UI module.
-- Component. The UI entity which is a part of a specific Widget and provides widget specific functionality.
-- Atom. The UI entity which is a totally independent contains no busyness-logic and designed to be used as a simple building block for multiple Widgets.
+- **Widget.** An independent part, which could be attached to the page. It is the only thing which is bound to the non-UI module.
+- **Component.** The UI entity which is a part of a specific Widget and provides a widget specific functionality.
+- **Atom.** The UI entity which is a totally independent contains no busyness-logic and designed to be used as a simple building block for multiple Widgets.
 The HOC components should also be stored with Atoms, since they a generic by definition and not be separate just because of their implementation.
 
 Technological decisions
@@ -73,7 +75,23 @@ To prevent application part from importing things from sibling branches of the p
  - @widgets
  - @store
 
- Where `@api` is plain JavaScript facade to the server API and `@store` is a container for modules + typings of a module system. After the consideration, I decided to remove `index.ts` from `@atoms` to encourage manual importing for a bundle optimization reasons. `@Store` however does not expose separate modules but rather list of instances in the `modules.ts`. The reason behind this is what I wanted it to be the place where the application structure is defined and separate modules could be stored in a separate npm package.
+ Where:
+ - `@api` is a plain JavaScript facade to the server API.
+ - `@store` is a container for modules + typings of a module system.
 
-Front-end app is CRA generated for simplicity, which influenced the choice of technologies. 
-For defining UI components styles I chose Sass, but probably using one of CSS-in-Js solution, Emotion, for example, would be preferable.
+ `Components` are not exposed externally as they are `widget`-specific.
+
+ After the consideration, I decided to remove `index.ts` from `@atoms` to encourage manual importing for a bundle optimization reasons. 
+ 
+ `@Store` however does not expose separate modules but rather list of instances in the `modules.ts`. The reason behind this is what I wanted it to be the place where the application structure is defined and separate modules could be stored in a separate npm package.
+
+Front-end app is CRA-generated for simplicity, which influenced the choice of technologies. 
+For defining UI components styles I here I used Sass, but, probably using one of CSS-in-JS solution, Emotion, for example, would be more  beneficial.
+
+To Be Done
+----------
+
+A few things I haven't done intentionally as they make application code harder to understand and harder to reason about.
+- I haven't introduced CSS-in-JS, as it is more a practical solution for a styles leaking-out problem, and have no architectural impact.
+- All money calculation should not be done on floats, but rather use a big decimals representation. I a real app I would use big.js but for now, all operation on numbers here is a fake.
+- I only implemented pager and leave out swiping, as making a decent swiper from scratch is quite a lot of work, and using a third-party solution will clutter the code.
