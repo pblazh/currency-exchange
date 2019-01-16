@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
-import "./Loading.scss";
+import "./Message.scss";
 
 export default ({ children }: { children: ReactNode }) => (
-  <div className="Loading">{children}</div>
+  <div className="Message">{children}</div>
 );

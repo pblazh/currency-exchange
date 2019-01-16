@@ -1,4 +1,4 @@
-import { Money } from "@atoms";
+import Money from "@atoms/Money";
 import React, { ChangeEvent, Component } from "react";
 import { IMoney } from "revolute-common";
 import { IIncome } from "../../types";

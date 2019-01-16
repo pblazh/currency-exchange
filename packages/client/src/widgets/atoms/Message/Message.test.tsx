@@ -1,10 +1,10 @@
 import {shallow} from "enzyme";
 import React from "react";
-import Loading from "./Loading";
+import Message from "./Message";
 
-describe("Loading", () => {
+describe("Message", () => {
   it("renders passed child", () => {
-    const loading = shallow(<Loading>passed child</Loading>);
+    const loading = shallow(<Message>passed child</Message>);
 
     expect(loading.text()).toEqual("passed child");
   });

@@ -1,4 +1,4 @@
-import { Pager } from "@atoms";
+import Pager from "@atoms/Pager";
 import React, { ChangeEvent, Component } from "react";
 import { IMoney } from "revolute-common";
 import Currency from "./Currency";

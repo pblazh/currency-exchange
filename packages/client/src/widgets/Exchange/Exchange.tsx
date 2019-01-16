@@ -1,9 +1,11 @@
-import { Loading } from "@atoms";
+import Message from "@atoms/Message";
 import { accounts as accountsModule, exchange as exchangeModule } from "@store/modules";
 import { IAction } from "@store/types";
+import ErrorScreen from "@widgets/ErrorScreen";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppStore, IError, IMoney, ISample, isError } from "revolute-common";
+import withErrorBoundary from "../HOC/withErrorBoundary";
 import { ExchangePair } from "./components";
 
 import "./Exchange.scss";
@@ -23,19 +25,19 @@ class Exchange extends Component<IProps> {
     const { exchange, accounts } = this.props;
 
     if (isError(exchange)) {
-      return <Loading>{exchange.message}</Loading>;
+      return <Message>{exchange.message}</Message>;
     }
 
     if (isError(accounts)) {
-      return <Loading>{accounts.message}</Loading>;
+      return <Message>{accounts.message}</Message>;
     }
 
     if (!accounts || !exchange) {
-      return <Loading>Loading...</Loading>;
+      return <Message>Loading...</Message>;
     }
 
     if (!accounts.length) {
-      return <Loading>You have no accounts!</Loading>;
+      return <Message>You have no accounts!</Message>;
     }
 
     return (
@@ -60,4 +62,7 @@ const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
   process: (what: IMoney, to: string) => dispatch(accountsModule.actions.fetch()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Exchange);
+export default withErrorBoundary(
+  connect(mapStateToProps, mapDispatchToProps)(Exchange),
+  ErrorScreen,
+);
