@@ -75,4 +75,4 @@ export const withErrorBoundary = (
   </ErrorBoundary>
 );
 
-export default withErrorBoundary;
+export default ErrorBoundary;

@@ -1,7 +1,8 @@
 // import { Money, Select } from "@atoms";
 import React from "react";
 import { IMoney } from "revolute-common";
-import { Money, Select } from "../../../atoms";
+import Money from "../../../atoms/Money";
+import Select from "../../../atoms/Select";
 
 import "./Header.scss";
 

@@ -1,6 +1,6 @@
 import {mount, shallow} from "enzyme";
 import React, { SFC } from "react";
-import { ErrorBoundary } from "./withErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 describe("ErrorBoundary", () => {
   it("renders passed child", () => {

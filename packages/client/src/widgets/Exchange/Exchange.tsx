@@ -1,3 +1,4 @@
+import { withErrorBoundary } from "@atoms/ErrorBoundary";
 import Message from "@atoms/Message";
 import { accounts as accountsModule, exchange as exchangeModule } from "@store/modules";
 import { IAction } from "@store/types";
@@ -5,7 +6,6 @@ import ErrorScreen from "@widgets/ErrorScreen";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppStore, IError, IMoney, ISample, isError } from "revolute-common";
-import withErrorBoundary from "../HOC/withErrorBoundary";
 import { ExchangePair } from "./components";
 
 import "./Exchange.scss";
