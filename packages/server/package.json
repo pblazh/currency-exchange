@@ -1,6 +1,7 @@
 {
   "name": "revolute-server",
   "description": "Revolute senior front-end test app server",
+  "repository": "https://github.com/pblazh/currency-exchange.git",
   "author": "Pawel Blazejewski <pblazh@gmail.com>",
   "version": "0.1.0",
   "license": "MIT",

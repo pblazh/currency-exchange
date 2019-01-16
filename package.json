@@ -1,7 +1,7 @@
 {
   "description": "Revolute senior test app",
+  "repository": "https://github.com/pblazh/currency-exchange.git",
   "author": "Pawel Blazejewski <pblazh@gmail.com>",
-  "repository": "https://androbot@bitbucket.org/androbot/revolute.git",
   "license": "MIT",
   "private": true,
   "workspaces": [
