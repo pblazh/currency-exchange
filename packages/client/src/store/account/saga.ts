@@ -1,7 +1,7 @@
 import { account } from "@api";
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
-const fetchRSS = (actions: any) =>
+const fetchData = (actions: any) =>
   function*(action: { payload: string }) {
     const data = yield call(account);
 
@@ -10,5 +10,5 @@ const fetchRSS = (actions: any) =>
 
 export default (actions: any) =>
   function* saga() {
-    yield all([takeLatest(actions.fetch.type, fetchRSS(actions))]);
+    yield takeLatest(actions.fetch.type, fetchData(actions));
   };

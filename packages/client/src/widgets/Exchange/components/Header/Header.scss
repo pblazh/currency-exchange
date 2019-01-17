@@ -1,25 +1,24 @@
-.Exchange{
-  &__Header {
-    align-items: center;
-    background-color: #0050e6;
-    color: white;
-    display: flex;
-    height: 55px;
-    justify-content: space-between;
-
-    button {
-      font-size: 1.3em;
-      flex: 1 0 30%;
-      opacity: 0.7;
-      background: none;
+.Exchange__Header {
+      align-items: center;
+      background-color: #0050e6;
       color: white;
-      border: none;
-      &:hover,
-      &:focus {
-        cursor: pointer;
-        outline: none;
-        opacity: 1;
+      display: flex;
+      height: 55px;
+      justify-content: space-between;
+
+      button {
+          font-size: 1.3em;
+          flex: 1 1 30%;
+          opacity: 0.7;
+          background: none;
+          color: white;
+          border: none;
+          padding: 1em;
+          &:hover,
+          &:focus {
+              cursor: pointer;
+              outline: none;
+              opacity: 1;
+          }
       }
-    }
   }
-}
