@@ -1,5 +1,5 @@
 import Money from "@atoms/Money";
-import React, { ChangeEvent, Component } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IMoney } from "revolute-common";
 import { IIncome } from "../../types";
 
@@ -18,7 +18,7 @@ interface IProps {
   onChange?: (value: number) => void;
 }
 
-export default class Currency extends Component<IProps> {
+export default class Currency extends PureComponent<IProps> {
   public onChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const value = Math.abs(parseFloat(ev.currentTarget.value));
 

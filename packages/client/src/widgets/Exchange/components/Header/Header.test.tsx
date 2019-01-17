@@ -1,5 +1,5 @@
 // Link.react.test.js
-import {mount, shallow} from "enzyme";
+import { shallow } from "enzyme";
 import React from "react";
 import Header from "./Header";
 

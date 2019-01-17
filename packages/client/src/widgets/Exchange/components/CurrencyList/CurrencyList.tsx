@@ -1,5 +1,5 @@
 import Pager from "@atoms/Pager";
-import React, { ChangeEvent, Component } from "react";
+import React, { PureComponent } from "react";
 import { IMoney } from "revolute-common";
 import Currency from "./Currency";
 
@@ -22,7 +22,7 @@ interface IState {
   page: number;
 }
 
-export default class CurrencyList extends Component<IProps, IState> {
+export default class CurrencyList extends PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -33,6 +33,7 @@ export default class CurrencyList extends Component<IProps, IState> {
   public render() {
     const { accounts, onChange } = this.props;
     const { page } = this.state;
+
     return (
       <div className="CurrencyList">
         <div className={`CurrencyList__carousel CurrencyList__carousel--${page} `}>

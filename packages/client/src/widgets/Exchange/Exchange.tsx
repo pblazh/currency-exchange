@@ -1,7 +1,7 @@
 import { withErrorBoundary } from "@atoms/ErrorBoundary";
 import Message from "@atoms/Message";
 import ErrorScreen from "@widgets/ErrorScreen";
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { IError, IMoney, ISample, isError } from "revolute-common";
 import { ExchangePair } from "./components";
 
@@ -14,10 +14,11 @@ interface IProps {
   process: (what: IMoney, to: string) => void;
 }
 
-class Exchange extends Component<IProps> {
+class Exchange extends PureComponent<IProps> {
   public componentDidMount() {
     this.props.fetchRates(5000);
   }
+
   public render() {
     const { exchange, accounts } = this.props;
 

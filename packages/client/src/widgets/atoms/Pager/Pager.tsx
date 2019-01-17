@@ -1,5 +1,5 @@
 import cx from "classnames";
-import React, { Component, MouseEvent } from "react";
+import React, { MouseEvent, PureComponent } from "react";
 
 import "./Pager.scss";
 
@@ -9,8 +9,7 @@ interface IProps {
   onChange?: (page: number) => void;
 }
 
-// export default ({ pages, active, onChange }: IProps) => (
-export default class Pager extends Component<IProps> {
+export default class Pager extends PureComponent<IProps> {
 
   public render() {
     const { pages } = this.props;
@@ -28,6 +27,7 @@ export default class Pager extends Component<IProps> {
       </div>
     );
   }
+
   private onClick = (ev: MouseEvent<HTMLElement>) => {
     if (this.props.onChange) {
       this.props.onChange(parseInt(String(ev.currentTarget.dataset.id), 10));
