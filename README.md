@@ -96,3 +96,5 @@ A few things I haven't done intentionally as they make application code harder t
 - All money calculation should not be done on floats, but rather use a big decimals representation. I a real app I would use big.js but for now, all operation on numbers here is a fake.
 - I only implemented pager and leave out swiping, as making a decent swiper from scratch is quite a lot of work, and using a third-party solution will clutter the code.
 - I didn't invest time into the cross device support and into the responsiveness, since I had no requirements. The only thing I've made is that on smaller screen the size of the App is 100%.
+- I haven't added any trimming to the input field.
+- There were no attempts to introduce i18n.
