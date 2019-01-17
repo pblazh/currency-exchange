@@ -1,11 +1,8 @@
 import { withErrorBoundary } from "@atoms/ErrorBoundary";
 import Message from "@atoms/Message";
-import { accounts as accountsModule, exchange as exchangeModule } from "@store/modules";
-import { IAction } from "@store/types";
 import ErrorScreen from "@widgets/ErrorScreen";
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { IAppStore, IError, IMoney, ISample, isError } from "revolute-common";
+import { IError, IMoney, ISample, isError } from "revolute-common";
 import { ExchangePair } from "./components";
 
 import "./Exchange.scss";
@@ -52,17 +49,4 @@ class Exchange extends Component<IProps> {
   }
 }
 
-const mapStateToProps = (state: IAppStore) => ({
-  accounts: state.accounts,
-  exchange: state.exchange,
-});
-
-const mapDispatchToProps = (dispatch: (action: IAction<any>) => void) => ({
-  fetchRates: (timeout?: number) => dispatch(exchangeModule.actions.fetch(timeout)),
-  process: (what: IMoney, to: string) => dispatch(accountsModule.actions.fetch()),
-});
-
-export default withErrorBoundary(
-  connect(mapStateToProps, mapDispatchToProps)(Exchange),
-  ErrorScreen,
-);
+export default withErrorBoundary(Exchange, ErrorScreen);

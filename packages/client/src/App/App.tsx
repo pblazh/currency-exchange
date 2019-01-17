@@ -1,8 +1,8 @@
 import { accounts } from "@store/modules";
 import { IAction } from "@store/types";
-import Exchange from "@widgets/Exchange";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Exchange from "./Exchange";
 
 import "./App.scss";
 
