@@ -8,7 +8,7 @@ export default function create(mountPoint: string): IModule {
   const actions = createActions(mountPoint);
   const selectors = createSelectors(mountPoint);
   const reducer = createReducer(actions, null);
-  const saga = createSaga(actions, selectors);
+  const saga = createSaga(actions);
 
   return {
     actions,

@@ -10,17 +10,22 @@ import "./Exchange.scss";
 interface IProps {
   exchange: ISample | IError | null;
   accounts: IMoney[] | null;
-  fetchRates: (timeout?: number) => void;
+  fetch: (timeout?: number) => void;
+  stop: () => void;
   process: (what: IMoney, to: string) => void;
 }
 
 class Exchange extends PureComponent<IProps> {
   public componentDidMount() {
-    this.props.fetchRates(5000);
+    this.props.fetch();
+  }
+
+  public componentWillUnmount() {
+    this.props.stop();
   }
 
   public render() {
-    const { exchange, accounts } = this.props;
+    const { accounts, exchange, process } = this.props;
 
     if (isError(exchange)) {
       return <Message>{exchange.message}</Message>;
@@ -43,7 +48,7 @@ class Exchange extends PureComponent<IProps> {
           <ExchangePair
             accounts={accounts}
             exchange={exchange}
-            process={this.props.process}
+            process={process}
           />
       </div>
     );
