@@ -1,6 +1,7 @@
-import Money from "@atoms/Money";
+// import Money from "@atoms/Money";
 import React, { ChangeEvent, PureComponent } from "react";
 import { IMoney } from "revolute-common";
+import Money from "../../../atoms/Money";
 import { IIncome } from "../../types";
 
 import "./Currency.scss";

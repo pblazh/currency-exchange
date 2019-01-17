@@ -55,4 +55,4 @@ class Exchange extends PureComponent<IProps> {
   }
 }
 
-export default withErrorBoundary(Exchange, ErrorScreen);
+export default withErrorBoundary<IProps>(Exchange, ErrorScreen);

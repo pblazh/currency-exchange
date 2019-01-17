@@ -65,11 +65,11 @@ export class ErrorBoundary extends Component<IProps, IState> {
   }
 }
 
-export const withErrorBoundary = (
+export const withErrorBoundary = <T extends {}>(
   Wrapped: typeof Component,
   Fallback?: SFC<IFallbackProps>,
   onError?: () => void,
-) => (props: any) => (
+) => (props: T) => (
   <ErrorBoundary FallbackComponent={Fallback} onError={onError}>
     <Wrapped {...props} />
   </ErrorBoundary>
