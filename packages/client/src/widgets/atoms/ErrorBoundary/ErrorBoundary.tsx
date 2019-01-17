@@ -1,4 +1,4 @@
-import React, { Component, SFC } from "react";
+import React, { Component, ReactNode, SFC } from "react";
 
 export interface IFallbackProps {
   componentStack: string;
@@ -11,7 +11,7 @@ const ErrorBoundaryFallbackComponent: SFC<IFallbackProps> = ({
 }) => <span>ERROR:{error.message}, STACK:{componentStack} </span>;
 
 interface IProps {
-  children?: any;
+  children?: ReactNode;
   FallbackComponent: SFC<IFallbackProps>;
   onError?: (error: Error, componentStack: string) => void;
 }

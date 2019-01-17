@@ -7,7 +7,7 @@ import Exchange from "./Exchange";
 import "./App.scss";
 
 interface IProps {
-  fetchAccount: any;
+  fetchAccount: () => void;
 }
 class App extends Component<IProps> {
   public componentDidMount() {

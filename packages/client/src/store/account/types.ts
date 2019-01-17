@@ -2,16 +2,24 @@ import { IError, IMoney } from "revolute-common";
 
 import {
   IActionCreator,
-  ISelectors as AbstractSelectors,
+  IActions as GenericActions,
+  ISelectors as GenericSelectors,
   IStore,
 } from "../types";
 
-export interface ISelectors extends AbstractSelectors {
-  all: (s: IStore) => IMoney[];
+export type StoredT = IMoney[] | IError | null;
+
+export interface ISelectors extends GenericSelectors {
+  all: (s: IStore) => StoredT;
 }
 
 export interface IReducers {
-  set: IActionCreator<IMoney[] | IError | null>;
+  set: IActionCreator<StoredT>;
 }
 
-export type IReducer = (r: IReducers, initial: any) => any;
+export type IReducer = (r: IReducers, initial: StoredT) => StoredT;
+
+export interface IActions extends GenericActions {
+  fetch: IActionCreator<void>;
+  set: IActionCreator<StoredT>;
+}

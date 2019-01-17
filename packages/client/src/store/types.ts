@@ -12,13 +12,18 @@ export interface IStore {
 }
 
 export type SelectorT = (store: IStore, ...rest: any[]) => any;
+
 export interface ISelectors {
   [key: string]: SelectorT;
 }
 
+export interface IActions {
+  [key: string]: (payload?: any) => IAction<any>;
+}
+
 export interface IModule {
   mountPoint: string;
-  actions: { [key: string]: (payload?: any) => any };
+  actions: IActions;
   reducer: IReducer<any>;
   selectors: ISelectors;
   saga?: () => any;

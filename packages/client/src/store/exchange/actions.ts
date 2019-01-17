@@ -1,12 +1,8 @@
-import { IError, ISample } from "revolute-common";
 import { makeAction } from "../utils";
+import { IActions, StoredT } from "./types";
 
-export default function(mountPoint: string) {
-  const actions = {
-    fetch: makeAction<number | undefined>(`revolute.exchange.${mountPoint}.fetch`),
-    set: makeAction<ISample | IError | null>(`revolute.exchange.${mountPoint}.set`),
+export default (mountPoint: string): IActions => ({
+    fetch: makeAction<void>(`revolute.exchange.${mountPoint}.fetch`),
+    set: makeAction<StoredT>(`revolute.exchange.${mountPoint}.set`),
     stop: makeAction<void>(`revolute.exchange.${mountPoint}.stop`),
-  };
-
-  return actions;
-}
+});

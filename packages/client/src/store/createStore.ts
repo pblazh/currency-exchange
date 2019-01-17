@@ -12,7 +12,7 @@ const composeEnhancers =
     : compose;
 
 const moduleSagas = (Object.values(modules) as IModule[]).reduce(
-  (acc: any[], module) => [...acc, module.saga && module.saga()],
+  (acc: IModule[], module) => [...acc, module.saga && module.saga()],
   [],
 );
 

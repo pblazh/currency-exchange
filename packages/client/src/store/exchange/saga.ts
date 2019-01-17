@@ -1,8 +1,9 @@
 import { exchange } from "@api";
 import { delay } from "redux-saga";
 import { call, cancel, fork, put, take } from "redux-saga/effects";
+import { IActions } from "./types";
 
-export default  (actions: any) => {
+export default  (actions: IActions) => {
   function* backgroundFetch() {
       while (true) {
         const rates = yield call(exchange);
