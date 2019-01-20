@@ -1,0 +1,28 @@
+FROM mhart/alpine-node:11 AS builder
+
+RUN mkdir -p /usr/src/app/packages/common \
+  & mkdir -p /usr/src/app/packages/client
+
+WORKDIR /usr/src/app
+
+COPY package.json yarn.lock ./
+COPY packages/common/package.json ./packages/common/
+COPY packages/client/package.json ./packages/client/
+
+RUN yarn install --pure-lockfile
+
+COPY . .
+RUN yarn workspace revolute-common run build \
+ && REACT_APP_API_URL="http://localhost:5000/api" yarn workspace revolute-client run build
+
+# runner
+#---------------------------------------------
+FROM nginx:1.13.3-alpine AS final
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY default.conf /etc/nginx/conf.default
+COPY --from=builder /usr/src/app/packages/client/build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

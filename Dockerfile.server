@@ -1,0 +1,22 @@
+FROM mhart/alpine-node:11
+
+RUN mkdir -p /usr/src/app/packages/common \
+  & mkdir -p /usr/src/app/packages/server
+
+WORKDIR /usr/src/app
+
+COPY package.json yarn.lock ./
+COPY packages/common/package.json ./packages/common/
+COPY packages/server/package.json ./packages/server/
+
+RUN yarn install --pure-lockfile
+
+COPY . .
+RUN yarn workspace revolute-common run build \
+ && yarn workspace revolute-server run build
+
+COPY packages/server/src/api/fixtures/* ./packages/server/build/api/fixtures/
+
+EXPOSE 5000
+
+CMD ["node", "./packages/server/build/index.js"]
