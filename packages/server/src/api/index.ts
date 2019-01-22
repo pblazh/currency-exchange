@@ -1,40 +1,29 @@
 import * as express from "express";
-import { read, readFile } from "fs";
+import "isomorphic-fetch";
 import { join } from "path";
-import { ISample } from "revolute-common";
-import { promisify } from "util";
 
 import accounts from "./fixtures/fakeAccounts";
-import { randomize, xml2currenciesList } from "./util";
+import { getData } from "./util";
 
-const readFileP = promisify<string, Buffer>(readFile);
-
-function readDataFile(fileName: string): Promise<ISample[]> {
-  return readFileP(join(__dirname, fileName)).then(l =>
-    xml2currenciesList(l.toString()),
+const getCurrent = () => getData(
+    "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+    join(__dirname, "fixtures/current.xml"),
   );
-}
+
+const getHistory = () => getData(
+    "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+    join(__dirname, "fixtures/history.xml"),
+  );
 
 const router = express.Router();
 
-router.get("/rate/exchange", (req, res) =>
-  readDataFile("fixtures/eurofxref-hist.xml")
-    .then(randomize)
-    .then(list => {
-      res.json(list[0]);
-    }),
-);
-
-router.get("/rate/history", (req, res) =>
-  readDataFile("fixtures/eurofxref-hist-90d.xml").then(list => {
-    res.json(list);
-  }),
-);
+router.get("/rate/exchange", (req, res) => getCurrent().then(data => res.json(data[0])));
+router.get("/rate/history", (req, res) => getHistory().then(data => res.json(data)));
 
 router.get("/store", (req, res) =>
   Promise.all([
-    readDataFile("fixtures/eurofxref-hist.xml"),
-    readDataFile("fixtures/eurofxref-hist-90d.xml"),
+    getCurrent(),
+    getHistory(),
   ]).then(([current, history]) => {
     res.json({
       current: current[0],

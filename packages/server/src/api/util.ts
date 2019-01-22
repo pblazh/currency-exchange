@@ -1,3 +1,5 @@
+import { existsSync, writeFile } from "fs";
+import { readFile } from "fs";
 import { ICurrency, ISample } from "revolute-common";
 import { promisify } from "util";
 import { parseString } from "xml2js";
@@ -23,6 +25,7 @@ interface IParsedHistorySample {
 }
 
 const parseHistorySample = promisify<string, IParsedHistorySample>(parseString);
+const writeToFile = promisify<string, string>(writeFile);
 
 export const convertDate = (dateString: string): Date => {
   const params: number[] = dateString.split("-").map(Number);
@@ -53,4 +56,37 @@ export const randomize = (rates: ISample[]): ISample[] =>
       ),
       updated: rate.updated,
     }),
+  );
+
+const fetchAndSave = (url: string, fileName: string) => {
+
+  if (existsSync(fileName)) {
+    return Promise.resolve();
+  }
+
+  return fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.text();
+      }
+      throw new Error(`Network error at ${url}`);
+    })
+    .then((data: string) =>
+      writeToFile(fileName, data),
+    );
+};
+
+const readFileP = promisify<string, Buffer>(readFile);
+
+function readDataFile(fileName: string): Promise<ISample[]> {
+  return readFileP(fileName).then(l =>
+    xml2currenciesList(l.toString()),
+  );
+}
+
+export const getData = (url: string, name: string) =>
+  fetchAndSave(url, name)
+  .then(() =>
+    readDataFile(name)
+      .then(randomize),
   );
