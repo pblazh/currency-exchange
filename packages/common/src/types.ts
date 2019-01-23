@@ -7,7 +7,7 @@ export const isError = (some: IError | any): some is IError => some && some.erro
 
 export interface ICurrency {
     currency: string;
-    rate: number;
+    rate: string;
 }
 
 export type CurrencyListT = ICurrency[];

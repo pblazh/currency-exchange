@@ -2,15 +2,15 @@ import { IMoney } from "revolute-common";
 
 const accounts: IMoney[] = [
   {
-    amount: 100,
+    amount: 10000,
     currency: "EUR",
   },
   {
-    amount: 200,
+    amount: 20000,
     currency: "USD",
   },
   {
-    amount: 300,
+    amount: 30000,
     currency: "GBP",
   },
 ];

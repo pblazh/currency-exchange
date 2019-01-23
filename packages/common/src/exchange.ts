@@ -1,33 +1,43 @@
-import { IMoney, ISample } from "./types";
+import { ICurrency, IMoney, ISample } from "./types";
 
-const where = (money: IMoney, rates: ISample) => {
-  if (money.currency === "EUR") {
-    return {
-      currency: "EUR",
-      rate: 1,
-    };
+const where = (currency: string, rates: ISample): ICurrency | undefined => {
+  if (currency === "EUR") {
+    return { currency: "EUR", rate: "1"};
   } else {
     return rates.currencies
-      .filter((rate) => rate.currency === money.currency)
+      .filter(rate => rate.currency === currency)
       .pop();
   }
 };
 
-export const exchange = (from: IMoney, to: IMoney, rates: ISample) => {
-  if (from.amount === 0) {
-    return {
-      ...to,
-      amount: 0,
-    };
+export const getRate = (from: string, to: string, rates: ISample) => {
+  if (from === to ) {
+     return 1;
   }
+
   const rateFrom = where(from, rates);
   const rateTo = where(to, rates);
-
   if (!rateFrom || !rateTo) { return new Error("Exchange rate does not exists"); }
+  const commonRate: number = parseFloat(rateFrom.rate) / parseFloat(rateTo.rate);
+  return commonRate;
+};
 
-  const rate: number = rateFrom.rate / rateTo.rate;
-  return {
-    ...to,
-    amount: from.amount / rate,
-  };
+export const exchange = (from: IMoney, currency: string, rates: ISample) => {
+  if (from.amount === 0) {
+    return {
+      amount: 0,
+      currency,
+    };
+  }
+
+  const rate = getRate(from.currency, currency, rates);
+
+  if (typeof rate === "number") {
+    return {
+      amount: Math.round(from.amount / rate),
+      currency,
+    };
+  } else {
+    return rate;
+  }
 };

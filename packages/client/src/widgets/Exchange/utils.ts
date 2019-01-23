@@ -10,8 +10,8 @@ export const makeOutcomes = (accounts: IMoney[], outcome: number) =>
 
 export const makeIncomes = (from: IMoney, rates: ISample, accounts: IMoney[]) =>
   accounts.reduce((processed: IIncome[], account: IMoney) => {
-    const rate = exchange({ ...account, amount: 1 }, from, rates);
-    const income = exchange(from, account, rates);
+    const rate = exchange({ ...account, amount: 100 }, from.currency, rates);
+    const income = exchange(from, account.currency, rates);
 
     return income instanceof Error
       ? processed
@@ -21,7 +21,7 @@ export const makeIncomes = (from: IMoney, rates: ISample, accounts: IMoney[]) =>
             ...account,
             from,
             income: income.amount,
-            rate: { ...rate, currency: from.currency } as IMoney,
+            rate: { amount: (rate  as IMoney).amount, currency: from.currency } as IMoney,
           },
         ];
   }, []);

@@ -32,13 +32,6 @@ router.get("/store", (req, res) =>
   }),
 );
 
-router.get("/account", (req, res) =>
-  res.json(
-    accounts.map(account => ({
-      ...account,
-      amount: account.amount * Math.random(),
-    })),
-  ),
-);
+router.get("/account", (req, res) => res.json(accounts));
 
 export default router;

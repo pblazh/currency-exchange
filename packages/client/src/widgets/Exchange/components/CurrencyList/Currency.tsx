@@ -10,7 +10,7 @@ const formatValue = (input: boolean, n: number) => {
   if (n === 0 ) {
     return "0";
   }
-  return input ? `+${n.toFixed(2)}` : `-${n}`;
+  return input ? `+${(n / 100).toFixed(2)}` : `-${n / 100}`;
 };
 
 interface IProps {
@@ -18,13 +18,17 @@ interface IProps {
   value: number;
   onChange?: (value: number) => void;
 }
+const parseString = (value: string) => {
+  const parsed = parseInt(value.replace(/[^0-9]/g, ""), 10);
+  return isNaN(parsed) ? 0 : parsed * 100;
+};
 
 export default class Currency extends PureComponent<IProps> {
   public onChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    const value = Math.abs(parseFloat(ev.currentTarget.value));
+    const value = parseString(ev.currentTarget.value);
 
     if (this.props.onChange) {
-      this.props.onChange(isNaN(value) ? 0 : value);
+      this.props.onChange(value);
     }
   }
 
@@ -59,7 +63,7 @@ export default class Currency extends PureComponent<IProps> {
 
 const renderRate = (income: IIncome) => (
   <>
-    <Money money={{...income, amount: 1}} />
+    <Money money={{...income, amount: 100}} />
     = <Money fractions money={{...income.rate as IMoney}} />
   </>
 );

@@ -34,10 +34,10 @@ export const convertDate = (dateString: string): Date => {
 
 const itemToCurrency = (item: IParsedSampleEntry): ICurrency => ({
   currency: item.$.currency,
-  rate: parseFloat(item.$.rate),
+  rate: item.$.rate,
 });
 
-const ISampleoCurrency = (item: IParsedSample): ISample => ({
+const ISampleCurrency = (item: IParsedSample): ISample => ({
   currencies: item.Cube ? item.Cube.map(itemToCurrency) : [],
   updated: convertDate(item.$.time).getTime(),
 });
@@ -45,18 +45,8 @@ const ISampleoCurrency = (item: IParsedSample): ISample => ({
 export const xml2currenciesList = (xml: string): Promise<ISample[]> =>
   parseHistorySample(xml).then((parsedXml: IParsedHistorySample) => {
     const samplesList = parsedXml["gesmes:Envelope"].Cube[0].Cube || [];
-    return samplesList ? samplesList.map(ISampleoCurrency) : [];
+    return samplesList ? samplesList.map(ISampleCurrency) : [];
   });
-
-export const randomize = (rates: ISample[]): ISample[] =>
-  rates.map(
-    rate => ({
-      currencies: rate.currencies.map(
-        currency => ({...currency, rate: currency.rate * (0.9 + Math.random() * 0.1)}),
-      ),
-      updated: rate.updated,
-    }),
-  );
 
 const fetchAndSave = (url: string, fileName: string) => {
 
@@ -87,6 +77,5 @@ function readDataFile(fileName: string): Promise<ISample[]> {
 export const getData = (url: string, name: string) =>
   fetchAndSave(url, name)
   .then(() =>
-    readDataFile(name)
-      .then(randomize),
+    readDataFile(name),
   );

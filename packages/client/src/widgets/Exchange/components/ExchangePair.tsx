@@ -31,12 +31,12 @@ export default class ExchangePair extends Component<IProps, IState> {
     const { amount, from, to } = this.state;
 
     const currentRate = exchange(
-      { ...from, amount: 1 },
-      to,
+      { ...from, amount: 100 },
+      to.currency,
       this.props.exchange,
     );
 
-    const accountsFrom: IOutcome[] = makeOutcomes(accounts, amount);
+    const accountsFrom: IOutcome[] = makeOutcomes(accounts, amount * 100);
     const accountsTo: IIncome[] = makeIncomes(
       { ...from, amount },
       this.props.exchange,
@@ -46,7 +46,7 @@ export default class ExchangePair extends Component<IProps, IState> {
     return (
       <>
         <Header
-          from={{ ...from, amount: 1 }}
+          from={{ ...from, amount: 100 }}
           to={currentRate as IMoney}
           onExchange={this.onExchange}
         />

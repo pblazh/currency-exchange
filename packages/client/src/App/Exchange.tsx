@@ -1,6 +1,5 @@
 
 import { accounts as accountsModule, exchange as exchangeModule } from "@store/modules";
-import { IAction } from "@store/types";
 import ExchangeWidget from "@widgets/Exchange";
 import { connect } from "react-redux";
 import { AnyAction, bindActionCreators, Dispatch } from "redux";

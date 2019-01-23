@@ -5,8 +5,8 @@ import Header from "./Header";
 
 describe("Header", () => {
   it("renders passed money", () => {
-    const from = {amount: 666, currency: "USD"};
-    const to = {amount: 777, currency: "USD"};
+    const from = {amount: 66600, currency: "USD"};
+    const to = {amount: 77700, currency: "USD"};
     const header = shallow(<Header from={from} to={to} onExchange={() => 1} />);
 
     expect(header.html()).toContain("666");
@@ -14,7 +14,7 @@ describe("Header", () => {
   });
 
   it("calls onExchange", () => {
-    const money = {amount: 777, currency: "USD"};
+    const money = {amount: 77700, currency: "USD"};
     const onExchange = jest.fn();
     const header = shallow(<Header from={money} to={money} onExchange={onExchange} />);
     const button = header.find("button[data-test=\"button-exchange\"]");

@@ -9,7 +9,7 @@ const formatCurrency = (money: IMoney, fractions: boolean = false) =>
       style: "currency",
       ...fractions ? {} : { minimumFractionDigits: 0, maximumFractionDigits: 0 },
     },
-  ).format(money.amount);
+  ).format(money.amount / 100);
 
 interface IProps {
   money: IMoney;

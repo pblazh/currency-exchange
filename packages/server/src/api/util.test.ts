@@ -32,9 +32,9 @@ describe("xml2currenciesList", () => {
     const expected: ISample[] = [
       {
         currencies: [
-          { currency: "USD", rate: 1.1535 },
-          { currency: "JPY", rate: 124.7 },
-          { currency: "BGN", rate: 1.9558 },
+          { currency: "USD", rate: "1.1535" },
+          { currency: "JPY", rate: "124.70" },
+          { currency: "BGN", rate: "1.9558" },
         ],
         updated: new Date(2019, 0, 10).getTime(),
       },
@@ -119,17 +119,17 @@ describe("xml2currenciesListHistory", () => {
     const expected: ISample[] = [
       {
         currencies: [
-          { currency: "USD", rate: 1.1535 },
-          { currency: "JPY", rate: 124.7 },
-          { currency: "BGN", rate: 1.9558 },
+          { currency: "USD", rate: "1.1535" },
+          { currency: "JPY", rate: "124.7" },
+          { currency: "BGN", rate: "1.9558" },
         ],
         updated: new Date(2019, 0, 10).getTime(),
       },
       {
         currencies: [
-          { currency: "USD", rate: 1.1455 },
-          { currency: "JPY", rate: 124.7 },
-          { currency: "BGN", rate: 1.9558 },
+          { currency: "USD", rate: "1.1455" },
+          { currency: "JPY", rate: "124.7" },
+          { currency: "BGN", rate: "1.9558" },
         ],
         updated: new Date(2019, 0, 9).getTime(),
       },

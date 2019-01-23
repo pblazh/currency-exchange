@@ -5,7 +5,7 @@ import Currency from "./Currency";
 
 const props = {
   account: {
-    amount: 666,
+    amount: 66600,
     currency: "XXX",
   },
   value: 777,
@@ -31,10 +31,10 @@ describe("Currency", () => {
   it("displays positive value if incoming", () => {
     const inProps = {
       account: {
-        amount: 666,
+        amount: 66600,
         currency: "XXX",
         rate: {
-          amount: 888,
+          amount: 88800,
           currency: "YYY",
         },
       },
@@ -47,10 +47,10 @@ describe("Currency", () => {
   it("displays positive value if incoming", () => {
     const inProps = {
       account: {
-        amount: 666,
+        amount: 66600,
         currency: "XXX",
         rate: {
-          amount: 888,
+          amount: 88800,
           currency: "YYY",
         },
       },
