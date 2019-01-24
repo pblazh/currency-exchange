@@ -1,40 +1,30 @@
 // import Money from "@atoms/Money";
-import React, { ChangeEvent, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { IMoney } from "revolute-common";
+import DigitalInput from "../../../atoms/DigitalInput";
+import DigitalOutput from "../../../atoms/DigitalOutput";
 import Money from "../../../atoms/Money";
 import { IIncome } from "../../types";
 
 import "./Currency.scss";
 
-const formatValue = (input: boolean, n: number) => {
-  if (n === 0 ) {
-    return "0";
-  }
-  return input ? `+${(n / 100).toFixed(2)}` : `-${n / 100}`;
-};
-
 interface IProps {
   account: IIncome;
   value: number;
+  active?: boolean;
   onChange?: (value: number) => void;
 }
-const parseString = (value: string) => {
-  const parsed = parseInt(value.replace(/[^0-9]/g, ""), 10);
-  return isNaN(parsed) ? 0 : parsed * 100;
-};
+interface IState {
+  value: string;
+}
 
-export default class Currency extends PureComponent<IProps> {
-  public onChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    const value = parseString(ev.currentTarget.value);
-
-    if (this.props.onChange) {
-      this.props.onChange(value);
-    }
-  }
-
+export default class Currency extends PureComponent<IProps, IState> {
+   public state = {
+    value: "0",
+  };
   public render() {
-    const { account, value } = this.props;
-    const isOutput = Boolean(account.rate);
+    const { account, value, active = false } = this.props;
+    const isInput = !Boolean(account.rate);
 
     return (
         <div className="Currency">
@@ -45,13 +35,14 @@ export default class Currency extends PureComponent<IProps> {
             </div>
           </div>
           <div className="Currency__base">
-            <input
-              className="Currency__value"
-              type="text"
-              readOnly={isOutput}
-              value={formatValue(isOutput, value)}
-              onChange={this.onChange}
-            />
+            { isInput
+             ? <DigitalInput
+                className="Currency__value"
+                active={active}
+                onChange={this.props.onChange}
+              />
+             : <DigitalOutput className="Currency__value" value={ value } />
+            }
             <div className="Currency__total">
               { account.rate && renderRate(account) }
             </div>

@@ -1,6 +1,6 @@
 /* tslint:disable no-empty */
-import { mount, shallow } from "enzyme";
-import React, { SFC } from "react";
+import { shallow } from "enzyme";
+import React from "react";
 import Currency from "./Currency";
 
 const props = {

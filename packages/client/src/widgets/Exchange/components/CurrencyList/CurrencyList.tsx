@@ -38,8 +38,9 @@ export default class CurrencyList extends PureComponent<IProps, IState> {
       <div className="CurrencyList">
         <div className={`CurrencyList__carousel CurrencyList__carousel--${page} `}>
             {
-              accounts.map(account => (
+              accounts.map((account, index) => (
                 <Currency
+                  active={index === page}
                   key={account.currency}
                   account={account}
                   onChange={onChange}

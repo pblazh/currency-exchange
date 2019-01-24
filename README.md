@@ -98,3 +98,19 @@ A few things I haven't done intentionally as they make application code harder t
 - I didn't invest time into the cross device support and into the responsiveness, since I had no requirements. The only thing I've made is that on smaller screen the size of the App is 100%.
 - I haven't added any trimming to the input field.
 - There were no attempts to introduce i18n and accessibility.
+
+
+First amendment
+---------------
+
+I was asked to improve solution so after the considerations I did the next things:
+
+- Removed floats. An amount is now stored in "cents". That is not the perfect solution as it doesn't answer the question of how many shillings in a half-sovereign, but good enough for now.
+- Now I store exchange rate in a string and only parse float when exchange.
+- I've made a custom parser for the input to not use parseFloat even there.
+- After the consideration, I introduced a dedicated js library Dinero.js for exchanging amounts and formatting monetary values even though it is overkill now.
+
+Then nearest plans
+------------------
+
+- Create money transfer from one account to another.
