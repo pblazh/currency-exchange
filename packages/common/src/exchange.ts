@@ -1,3 +1,4 @@
+import * as Dinero from "dinero.js";
 import { ICurrency, IMoney, ISample } from "./types";
 
 const where = (currency: string, rates: ISample): ICurrency | undefined => {
@@ -34,7 +35,7 @@ export const exchange = (from: IMoney, currency: string, rates: ISample) => {
 
   if (typeof rate === "number") {
     return {
-      amount: Math.round(from.amount / rate),
+      amount: Dinero({currency, amount: from.amount}).divide(rate).getAmount(),
       currency,
     };
   } else {

@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "prestart": "rimraf packages/*/build && yarn workspace revolute-common run build",
     "start": "wsrun --exclude-missing start",
     "lint": "wsrun --exclude-missing lint",
     "test": "wsrun --exclude-missing test",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "prettier": "^1.15.3",
+    "rimraf": "^2.6.3",
     "tslint": "^5.12.1",
     "typescript": "^3.2.2",
     "wsrun": "^3.6.2"

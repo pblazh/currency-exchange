@@ -17,11 +17,13 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "@types/classnames": "^2.2.7",
+    "@types/dinero.js": "^1.4.0",
     "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
     "@types/react-redux": "^6.0.12",
     "classnames": "^2.2.6",
+    "dinero.js": "^1.4.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",

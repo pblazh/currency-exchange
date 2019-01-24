@@ -8,7 +8,7 @@ const props = {
     amount: 66600,
     currency: "XXX",
   },
-  value: 777,
+  value: 77700,
 };
 
 describe("Currency", () => {
@@ -38,7 +38,7 @@ describe("Currency", () => {
           currency: "YYY",
         },
       },
-      value: 777,
+      value: 77700,
     };
     const currency = shallow(<Currency {...inProps} />);
     expect(currency.find("input").prop("value")).toEqual("+777.00");

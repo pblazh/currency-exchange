@@ -1,6 +1,6 @@
 {
   "name": "revolute-common",
-  "description": "Revolute senior front-end test app types",
+  "description": "Revolute senior front-end test",
   "repository": "https://github.com/pblazh/currency-exchange.git",
   "author": "Pawel Blazejewski <pblazh@gmail.com>",
   "version": "0.1.0",
@@ -15,7 +15,9 @@
     "build:watch": "tsc --watch"
   },
   "dependencies": {
-    "@types/node": "^10.12.18"
+    "@types/dinero.js": "^1.4.0",
+    "@types/node": "^10.12.18",
+    "dinero.js": "^1.4.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",

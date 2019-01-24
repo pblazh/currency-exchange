@@ -1,15 +1,9 @@
+import Dinero from "dinero.js";
 import React from "react";
 import { IMoney } from "revolute-common";
 
 const formatCurrency = (money: IMoney, fractions: boolean = false) =>
-  new Intl.NumberFormat(
-    "en-US",
-    {
-      currency: money.currency,
-      style: "currency",
-      ...fractions ? {} : { minimumFractionDigits: 0, maximumFractionDigits: 0 },
-    },
-  ).format(money.amount / 100);
+  Dinero(money).toFormat(fractions ? "$0,0.00" : "$0,0");
 
 interface IProps {
   money: IMoney;
