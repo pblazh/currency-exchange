@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { exchange, IMoney, ISample } from "revolute-common";
-import { IIncome, IOutcome } from "../types";
-import { makeIncomes, makeOutcomes } from "../utils";
+import { IIncome } from "../types";
+import { makeIncomes } from "../utils";
 import CurrencyList from "./CurrencyList";
 import Header from "./Header";
 
@@ -28,17 +28,17 @@ export default class ExchangePair extends Component<IProps, IState> {
 
   public render() {
     const { accounts } = this.props;
-    const { amount, from, to } = this.state;
+    const { amount, from: {currency}, to } = this.state;
+    const one = { currency, amount: 100 };
 
     const currentRate = exchange(
-      { ...from, amount: 100 },
+      one,
       to.currency,
       this.props.exchange,
     );
 
-    const accountsFrom: IOutcome[] = makeOutcomes(accounts, amount * 100);
     const accountsTo: IIncome[] = makeIncomes(
-      { ...from, amount },
+      { currency, amount },
       this.props.exchange,
       accounts,
     );
@@ -46,14 +46,14 @@ export default class ExchangePair extends Component<IProps, IState> {
     return (
       <>
         <Header
-          from={{ ...from, amount: 100 }}
+          from={ one }
           to={currentRate as IMoney}
           onExchange={this.onExchange}
         />
 
         <CurrencyList
           value={this.state.amount}
-          accounts={accountsFrom}
+          accounts={accounts}
           defaultPage={0}
           onChange={this.onChange}
           onPage={this.onPage}
@@ -70,13 +70,18 @@ export default class ExchangePair extends Component<IProps, IState> {
   }
 
   private onExchange = () => {
-    const what: IMoney = {...this.state.from, amount: this.state.amount};
-    const to = this.state.to.currency;
+    const {
+      from: { currency },
+      to: { currency: to },
+      amount,
+    } = this.state;
+
+    const what: IMoney = { currency, amount};
     this.props.process(what, to);
   }
 
-  private onChange = (value: number) => {
-    this.setState({ amount: value });
+  private onChange = (amount: number) => {
+    this.setState({ amount });
   }
 
   private onPage = (page: number) => {
