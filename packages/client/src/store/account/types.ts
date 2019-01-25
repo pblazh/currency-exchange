@@ -22,4 +22,5 @@ export type IReducer = (r: IReducers, initial: StoredT) => StoredT;
 export interface IActions extends GenericActions {
   fetch: IActionCreator<void>;
   set: IActionCreator<StoredT>;
+  transfer: IActionCreator<[IMoney, string]>;
 }

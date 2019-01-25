@@ -5,4 +5,5 @@ export default {
   exchange: `${BASE_URL}/rate/exchange`,
   history: `${BASE_URL}/rate/history`,
   store: `${BASE_URL}/store`,
+  transfer: `${BASE_URL}/transfer`,
 };

@@ -12,7 +12,7 @@ interface IProps {
   accounts: IMoney[] | null;
   fetch: (timeout?: number) => void;
   stop: () => void;
-  process: (what: IMoney, to: string) => void;
+  transfer: (what: IMoney, to: string) => void;
 }
 
 class Exchange extends PureComponent<IProps> {
@@ -25,7 +25,7 @@ class Exchange extends PureComponent<IProps> {
   }
 
   public render() {
-    const { accounts, exchange, process } = this.props;
+    const { accounts, exchange, transfer } = this.props;
 
     if (isError(exchange)) {
       return <Message>{exchange.message}</Message>;
@@ -48,7 +48,7 @@ class Exchange extends PureComponent<IProps> {
           <ExchangePair
             accounts={accounts}
             exchange={exchange}
-            process={process}
+            transfer={transfer}
           />
       </div>
     );

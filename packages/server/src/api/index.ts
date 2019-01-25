@@ -2,6 +2,7 @@ import * as express from "express";
 import "isomorphic-fetch";
 import { join } from "path";
 
+import { exchange } from "revolute-common";
 import accounts from "./fixtures/fakeAccounts";
 import { getData } from "./util";
 
@@ -33,5 +34,25 @@ router.get("/store", (req, res) =>
 );
 
 router.get("/account", (req, res) => res.json(accounts));
+
+router.post("/transfer", (req, res) => {
+  const { from, to, amount } = req.body;
+  return getCurrent().then(rates => {
+    const exchanged = exchange({currency: from, amount}, to, rates[0]);
+    if (exchanged instanceof Error ) {
+      return res.json(accounts);
+    } else {
+      const updatedAccounts = accounts.map(account => {
+        if (account.currency === from) {
+            return { currency: account.currency, amount: account.amount - amount };
+        } else if (account.currency === to) {
+            return { currency: account.currency, amount: account.amount + exchanged.amount };
+        }
+        return account;
+      });
+      return res.json(updatedAccounts);
+    }
+  });
+});
 
 export default router;

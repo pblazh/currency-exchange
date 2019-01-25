@@ -102,7 +102,6 @@ A few things I haven't done intentionally as they make application code harder t
 
 First amendment
 ---------------
-
 I was asked to improve solution so after the considerations I did the next things:
 
 - Removed floats. An amount is now stored in "cents". That is not the perfect solution as it doesn't answer the question of how many shillings in a half-sovereign, but good enough for now.
@@ -110,7 +109,10 @@ I was asked to improve solution so after the considerations I did the next thing
 - I've made a custom parser for the input to not use parseFloat even there.
 - After the consideration, I introduced a dedicated js library Dinero.js for exchanging amounts and formatting monetary values even though it is overkill now.
 
-Then nearest plans
-------------------
+Second amendment
+----------------
+- Started money transfer
 
-- Create money transfer from one account to another.
+The nearest plans
+------------------
+- Save the modified account

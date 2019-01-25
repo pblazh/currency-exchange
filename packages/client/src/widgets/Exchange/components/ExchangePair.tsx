@@ -8,7 +8,7 @@ import Header from "./Header";
 interface IProps {
   accounts: IMoney[];
   exchange: ISample;
-  process: (what: IMoney, to: string) => void;
+  transfer: (what: IMoney, to: string) => void;
 }
 interface IState {
   amount: number;
@@ -77,7 +77,7 @@ export default class ExchangePair extends Component<IProps, IState> {
     } = this.state;
 
     const what: IMoney = { currency, amount};
-    this.props.process(what, to);
+    this.props.transfer(what, to);
   }
 
   private onChange = (amount: number) => {

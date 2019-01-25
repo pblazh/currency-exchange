@@ -13,8 +13,8 @@ const mapStateToProps = (state: IAppStore) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     bindActionCreators({
             fetch: exchangeModule.actions.fetch,
-            process: (what: IMoney, to: string) => accountsModule.actions.fetch(),
             stop:  exchangeModule.actions.stop,
+            transfer: (what: IMoney, to: string) => accountsModule.actions.transfer([what, to]),
         },
         dispatch,
     );
