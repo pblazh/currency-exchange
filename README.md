@@ -111,8 +111,4 @@ I was asked to improve solution so after the considerations I did the next thing
 
 Second amendment
 ----------------
-- Started money transfer
-
-The nearest plans
-------------------
-- Save the modified account
+- Created a simple money transfer. No errors handling, no overdrafts control, etc for now.

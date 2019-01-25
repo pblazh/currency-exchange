@@ -1,0 +1,14 @@
+[
+  {
+    "currency": "EUR",
+    "amount": 30000
+  },
+  {
+    "currency": "USD",
+    "amount": 40000
+  },
+  {
+    "amount": 50000,
+    "currency": "GBP"
+  }
+]

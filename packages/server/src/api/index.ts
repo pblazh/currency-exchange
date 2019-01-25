@@ -3,8 +3,7 @@ import "isomorphic-fetch";
 import { join } from "path";
 
 import { exchange } from "revolute-common";
-import accounts from "./fixtures/fakeAccounts";
-import { getData } from "./util";
+import { getAccounts, getData, saveAccounts, transfer } from "./util";
 
 const getCurrent = () => getData(
     "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
@@ -33,26 +32,22 @@ router.get("/store", (req, res) =>
   }),
 );
 
-router.get("/account", (req, res) => res.json(accounts));
+router.get("/account", (req, res) => getAccounts().then(accounts => res.json(accounts)));
 
 router.post("/transfer", (req, res) => {
   const { from, to, amount } = req.body;
-  return getCurrent().then(rates => {
-    const exchanged = exchange({currency: from, amount}, to, rates[0]);
-    if (exchanged instanceof Error ) {
-      return res.json(accounts);
-    } else {
-      const updatedAccounts = accounts.map(account => {
-        if (account.currency === from) {
-            return { currency: account.currency, amount: account.amount - amount };
-        } else if (account.currency === to) {
-            return { currency: account.currency, amount: account.amount + exchanged.amount };
-        }
-        return account;
-      });
-      return res.json(updatedAccounts);
-    }
-  });
+  Promise.all([getAccounts(), getCurrent()])
+    .then(([accounts, rates]) => {
+      const withdrawn = { currency: from, amount };
+      const exchanged = exchange(withdrawn, to, rates[0]);
+      if (exchanged instanceof Error) {
+        return res.json(accounts);
+      } else {
+        const updatedAccounts = transfer(withdrawn, exchanged, accounts);
+        return saveAccounts(updatedAccounts)
+          .then(res.json.bind(res));
+      }
+    });
 });
 
 export default router;

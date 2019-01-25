@@ -1,6 +1,6 @@
-import { existsSync, writeFile } from "fs";
-import { readFile } from "fs";
-import { ICurrency, ISample } from "revolute-common";
+import { existsSync, readFile, writeFile } from "fs";
+import { join } from "path";
+import { ICurrency, IMoney, ISample } from "revolute-common";
 import { promisify } from "util";
 import { parseString } from "xml2js";
 
@@ -26,6 +26,7 @@ interface IParsedHistorySample {
 
 const parseHistorySample = promisify<string, IParsedHistorySample>(parseString);
 const writeToFile = promisify<string, string>(writeFile);
+const readFileP = promisify<string, Buffer>(readFile);
 
 export const convertDate = (dateString: string): Date => {
   const params: number[] = dateString.split("-").map(Number);
@@ -66,8 +67,6 @@ const fetchAndSave = (url: string, fileName: string) => {
     );
 };
 
-const readFileP = promisify<string, Buffer>(readFile);
-
 function readDataFile(fileName: string): Promise<ISample[]> {
   return readFileP(fileName).then(l =>
     xml2currenciesList(l.toString()),
@@ -79,3 +78,23 @@ export const getData = (url: string, name: string) =>
   .then(() =>
     readDataFile(name),
   );
+
+export const getAccounts = () =>
+  readFileP(join(__dirname, "fixtures/accounts.json"))
+    .then(data => JSON.parse(data.toString()) as IMoney[]);
+
+export const saveAccounts = (accounts: IMoney[]) =>
+  writeToFile(
+    join(__dirname, "fixtures/accounts.json"), JSON.stringify(accounts, null, 2),
+  ).then(() => accounts);
+
+export const transfer = (from: IMoney, to: IMoney, accounts: IMoney[]) => accounts.map(account => {
+  switch (account.currency) {
+    case from.currency:
+      return { currency: account.currency, amount: account.amount - from.amount };
+    case to.currency:
+      return { currency: account.currency, amount: account.amount + to.amount };
+    default:
+      return account;
+  }
+});
