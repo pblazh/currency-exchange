@@ -31,7 +31,7 @@ export default class Currency extends PureComponent<IProps, IState> {
           <div className="Currency__base">
             <div className="Currency__code">{account.currency}</div>
             <div className="Currency__total">
-              You have <Money money={account}/>
+              You have <Money money={account} fractions/>
             </div>
           </div>
           <div className="Currency__base">

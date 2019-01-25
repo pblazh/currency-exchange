@@ -25,6 +25,7 @@
     font-size: 3.5em;
   }
   &__total {
+    height: 1em;
     margin-top: 1em;
     opacity: 0.5;
   }
@@ -35,6 +36,7 @@
     font-family: inherit;
     margin: 0;
     text-align: inherit;
+    text-overflow: ellipsis;
     width: 100%;
 
     &:focus {
