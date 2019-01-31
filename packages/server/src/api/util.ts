@@ -88,13 +88,25 @@ export const saveAccounts = (accounts: IMoney[]) =>
     join(__dirname, "fixtures/accounts.json"), JSON.stringify(accounts, null, 2),
   ).then(() => accounts);
 
-export const transfer = (from: IMoney, to: IMoney, accounts: IMoney[]) => accounts.map(account => {
-  switch (account.currency) {
-    case from.currency:
-      return { currency: account.currency, amount: account.amount - from.amount };
-    case to.currency:
-      return { currency: account.currency, amount: account.amount + to.amount };
-    default:
-      return account;
+export const transfer = (from: IMoney, to: IMoney, accounts: IMoney[]) => {
+  const fromAccount = accounts.filter(account => account.currency === from.currency).pop();
+  const toAccount = accounts.filter(account => account.currency === to.currency).pop();
+
+  if (from.currency === to.currency || !fromAccount || !toAccount || fromAccount.amount < from.amount) {
+    return accounts;
   }
-});
+
+  const fromAccountTransferred = {...fromAccount, amount: fromAccount.amount - from.amount};
+  const toAccountTransferred = {...toAccount, amount: toAccount.amount + to.amount};
+
+  return accounts.map(account => {
+    switch (account.currency) {
+      case from.currency:
+        return fromAccountTransferred;
+      case to.currency:
+        return toAccountTransferred;
+      default:
+        return account;
+    }
+  });
+};

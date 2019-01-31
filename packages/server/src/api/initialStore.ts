@@ -1,8 +1,7 @@
 import { IAppStore } from "revolute-common";
-import accounts from "./fixtures/fakeAccounts";
 
 const store: IAppStore = {
-  accounts,
+  accounts: [],
   exchange: null,
   history: [],
 };

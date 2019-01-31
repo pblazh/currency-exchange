@@ -1,5 +1,5 @@
 import { ISample } from "revolute-common";
-import { convertDate, xml2currenciesList } from "./util";
+import { convertDate, transfer, xml2currenciesList } from "./util";
 
 describe("convertDate", () => {
   it("converts date text into the Date object", () => {
@@ -136,5 +136,119 @@ describe("xml2currenciesListHistory", () => {
     ];
 
     expect(result).toEqual(expected);
+  });
+});
+
+describe("transfer", () => {
+  it("transfers 0", () => {
+    const accounts = [
+      {
+        amount: 30000,
+        currency: "EUR",
+      },
+      {
+        amount: 40000,
+        currency: "USD",
+      },
+    ];
+    const from = {
+      amount: 0,
+      currency: "EUR",
+    };
+    const to = {
+      amount: 0,
+      currency: "USD",
+    };
+
+    const result = transfer(from, to, accounts);
+
+    expect(result).toEqual(accounts);
+  });
+
+  it("transfers more than 0", () => {
+    const accounts = [
+      {
+        amount: 30000,
+        currency: "EUR",
+      },
+      {
+        amount: 40000,
+        currency: "USD",
+      },
+    ];
+
+    const from = {
+      amount: 100,
+      currency: "EUR",
+    };
+
+    const to = {
+      amount: 200,
+      currency: "USD",
+    };
+
+    const expected = [
+      {
+        amount: 29900,
+        currency: "EUR",
+      },
+      {
+        amount: 40200,
+        currency: "USD",
+      },
+    ];
+
+    const result = transfer(from, to, accounts);
+
+    expect(result).toEqual(expected);
+  });
+
+  it("transfers correctly when from and to is the same", () => {
+    const accounts = [
+      {
+        amount: 30000,
+        currency: "EUR",
+      },
+      {
+        amount: 40000,
+        currency: "USD",
+      },
+    ];
+
+    const from = {
+      amount: 100,
+      currency: "EUR",
+    };
+
+    const result = transfer(from, from, accounts);
+
+    expect(result).toEqual(accounts);
+  });
+
+  it("does not transfer when from is bigger then amount", () => {
+    const accounts = [
+      {
+        amount: 30000,
+        currency: "EUR",
+      },
+      {
+        amount: 40000,
+        currency: "USD",
+      },
+    ];
+
+    const from = {
+      amount: 40000,
+      currency: "EUR",
+    };
+
+    const to = {
+      amount: 40000,
+      currency: "USD",
+    };
+
+    const result = transfer(from, to, accounts);
+
+    expect(result).toEqual(accounts);
   });
 });
